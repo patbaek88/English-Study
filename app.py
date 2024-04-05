@@ -22,3 +22,5 @@ st.title('English Quiz')  # 타이틀명 지정
 st.write("")
 
 st.write(df_samples)
+
+st.experimental_rerun()
