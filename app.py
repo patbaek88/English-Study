@@ -10,9 +10,6 @@ df_samples = df.sample(n=10)
 st.title('English Quiz')  # 타이틀명 지정
 st.write("")
 st.write(df_samples)
-st.write("")
-
-
 if st.button("Reload"):
   st.experimental_rerun()
   
