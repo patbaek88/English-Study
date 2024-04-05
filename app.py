@@ -5,7 +5,7 @@
 
 
 import pandas as pd
-import random
+#import random
 
 # review 데이터 불러오기
 df = pd.read_csv('review.csv')
