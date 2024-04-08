@@ -11,7 +11,7 @@ st.title('English Quiz')  # 타이틀명 지정
 st.write("")
 st.write(df_samples)
 if st.button("Reload"):
-  st.experimental_rerun()
+  st.rerun()
   
 
 st.write("")
