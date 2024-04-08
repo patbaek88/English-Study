@@ -20,11 +20,11 @@ st.write("")
 tab1, tab2= st.tabs(['Korean' , 'English'])
 with tab1:
   #tab A 를 누르면 표시될 내용
-  st.write(df_quiz)
+  st.table(df_quiz)
     
 with tab2:
   #tab B를 누르면 표시될 내용 
-  st.write(df_answer)
+  st.table(df_answer)
 
 if st.button("Reload"):
   st.write("")
