@@ -3,7 +3,7 @@ import pandas as pd
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
-if password_input = "cmcpl":
+if password_input == "cmcpl":
   # review 데이터 불러오기
   df = pd.read_csv('review.csv')
 
