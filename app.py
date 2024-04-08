@@ -17,7 +17,7 @@ st.write(df_quiz)
 
 
 if st.button("Reload"):
-  st.write(?)
+  st.write("?")
 
 st.write("")
 st.write("")
