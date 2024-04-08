@@ -31,5 +31,8 @@ if st.button("Reload"):
 
 st.write("")
 st.write("")
-st.write('All Sentences for the Quiz')
-st.write(df)
+#st.write('All Sentences for the Quiz')
+with st.expander('Show All Sentences'):
+    st.write(df)
+
+#st.write(df)
