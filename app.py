@@ -4,8 +4,8 @@ import pandas as pd
 # review 데이터 불러오기
 df = pd.read_csv('review.csv')
 
-# 10개의 무작위 샘플 추출
-df_samples = df.sample(n=10)
+# n개의 무작위 샘플 추출
+df_samples = df.sample(n=1)
 
 st.title('English Quiz')  # 타이틀명 지정
 st.write("")
