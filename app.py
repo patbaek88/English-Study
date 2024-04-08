@@ -6,7 +6,7 @@ password_input = st.text_input("암호를 입력해주세요",type= "password")
 if password_input == "cmcpl":
   # review 데이터 불러오기
   df = pd.read_csv('review.csv')
-
+  
   # n개의 무작위 샘플 추출
   df_samples = df.sample(n=1)
   df_quiz = df_samples.loc[:, ['Korean']]
