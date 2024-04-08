@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
-
+pd.set_option('display.max.colwidth', 300)
 # review 데이터 불러오기
 df = pd.read_csv('review.csv')
-pd.set_option('display.max.colwidth', 400)
+
 
 # n개의 무작위 샘플 추출
 df_samples = df.sample(n=1)
