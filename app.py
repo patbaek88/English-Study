@@ -13,9 +13,9 @@ st.title('English Quiz')  # 타이틀명 지정
 st.write("")
 st.write(df_quiz)
 if st.button("Answer"):
-  st.write(df_answer)
-else:
   st.write("")
+else:
+  st.write(df_answer)
 
 #if st.button("Reload"):
 #  st.write("")
