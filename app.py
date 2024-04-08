@@ -15,8 +15,8 @@ st.write(df_quiz)
 if st.button("Answer"):
   st.write(df_answer)
 st.write("")
-if st.button("Reload"):
-  st.rerun()
+#if st.button("Reload"):
+#  st.rerun()
 
 st.write("")
 st.write("")
