@@ -16,7 +16,7 @@ st.write(df_quiz)
 #  st.write(df_answer)
 
 
-if st.checkbox('Answer') #체크 했을때만 정답을 보여줘
+if st.checkbox('Answer'):
 	st.dataframe(df_answer)
 
 if st.button("Reload"):
