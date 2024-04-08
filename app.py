@@ -12,12 +12,13 @@ df_answer = df_samples.loc[:, ['English']]
 st.title('English Quiz')  # 타이틀명 지정
 st.write("")
 st.write(df_quiz)
-#if st.button("Answer"):
-#  st.write(df_answer)
+if st.button("Answer"):
+  st.write(df_answer)
+else:
+  st.write("")
 
-
-if st.button("Reload"):
-  st.write("?")
+#if st.button("Reload"):
+#  st.write("")
 
 st.write("")
 st.write("")
