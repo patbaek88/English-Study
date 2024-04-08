@@ -12,7 +12,7 @@ df_samples = df.sample(n=10)
 st.title('English Quiz')  # 타이틀명 지정
 st.write("")
 
-df_quiz = st.dataframe(data = df_samples, width = 10)
+df_quiz = st.dataframe(data = df_samples, width = 100)
 st.write(df_quiz)
 if st.button("Reload"):
   st.rerun()
