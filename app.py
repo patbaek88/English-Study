@@ -39,6 +39,6 @@ if password_input == "cmcpl":
 
   #st.write(df)
 else:
-  st.write("암호가 틀렸습니다")
+  st.write("")
 
 
