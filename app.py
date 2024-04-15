@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from gtts import gTTS
-from playsound import playsound
+from io import BytesIO
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -14,6 +14,9 @@ if password_input == "cmcpl":
   df_quiz = df_samples.loc[:, ['Korean']]
   df_answer = df_samples.loc[:, ['English']]
   answer = df_answer.iloc[0,0]
+  sound_file = BytesIO()
+  tts = gTTS(answer, lang='en')
+  tts.write_to_fp(sound_file)
 
   st.title('English Quiz')  # 타이틀명 지정
   st.write("")
@@ -33,12 +36,7 @@ if password_input == "cmcpl":
 
   with tab3:
     #tab C를 누르면 표시될 내용 
-    st.table(df_answer)
-    audio = 'speech.mp3'
-    language = 'en'
-    sp = gTTS(lang= language, text = answer, slow = False)
-    sp.save(audio)
-    playsound(audio)
+    st.audio(sound_file)
 
   if st.button("Reload"):
     st.write("")
