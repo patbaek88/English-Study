@@ -1,1 +1,3 @@
 pandas
+gTTS
+playsound
