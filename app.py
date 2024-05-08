@@ -58,7 +58,7 @@ if password_input == "cmcpl":
       tts=gTTS(english_sentence, lang='en')
       audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
       tts.save(audio_file_path)
-      st.write(f"{order}")
+      st.write(f"{order}. {speaker}")
       st.audio(audio_file_path)
       #st.write(f"{english_sentence}")
       #st.write(f"{korean_translation}")
