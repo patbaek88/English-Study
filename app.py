@@ -57,8 +57,8 @@ if password_input == "cmcpl":
       tts=gTTS(english_sentence, lang='en')
       audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
       tts.save(audio_file_path)
-      if st.button(f"재생: {speaker}의 영어문장"):
-        st.audio(audio_file_path)
+      #if st.button(f"재생: {speaker}의 영어문장"):
+      st.audio(audio_file_path)
 
       st.write(f"번역: {korean_translation}")
     
