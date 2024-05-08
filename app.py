@@ -65,7 +65,7 @@ if password_input == "cmcpl":
       st.write("")
         
   with tab5:  
-    st.table(data)
+    st.write(data, hide_index = True)
     
   if st.button("Reload"):
     st.write("")
