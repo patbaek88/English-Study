@@ -60,7 +60,7 @@ if password_input == "cmcpl":
       if st.button(f"재생: {speaker}의 영어문장"):
         st.audio(audio_file_path)
 
-      st.write(f"번역" {korean_translation}")
+      st.write(f"번역: {korean_translation}")
     
     
   if st.button("Reload"):
