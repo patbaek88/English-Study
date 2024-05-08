@@ -35,7 +35,7 @@ if password_input == "cmcpl":
   #if st.button("Answer"):
   #  st.write(df_answer)
 
-  tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English-Audio', 'Scenario'])
+  tab1, tab2, tab3, tab4, tab5 = st.tabs(['Korean' , 'English', 'English-Audio', 'Scenario-Audio', 'Scenario-Text'])
   with tab1:
     #tab A 를 누르면 표시될 내용
     st.table(df_quiz)
@@ -54,14 +54,18 @@ if password_input == "cmcpl":
       english_sentence = row['English']
       korean_translation = row['Korean']
       speaker = row['Name']
+      order = row['Order']
       tts=gTTS(english_sentence, lang='en')
       audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
       tts.save(audio_file_path)
+      st.write(f"{order}")
       st.audio(audio_file_path)
-      if st.button(f"Show {speaker}'s speech"):
-        st.write(f"{english_sentence}")
-        st.write(f"{korean_translation}")
-    
+      #st.write(f"{english_sentence}")
+      #st.write(f"{korean_translation}")
+      st.write("")
+        
+  with tab5:  
+    st.write(data)
     
   if st.button("Reload"):
     st.write("")
