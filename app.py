@@ -30,6 +30,7 @@ if password_input == "cmcpl":
 
   st.title('English Quiz')  # 타이틀명 지정
   st.write("")
+  
   #st.write(df_quiz)
 
   #if st.button("Answer"):
@@ -77,6 +78,11 @@ if password_input == "cmcpl":
       st.write(df)
 
   #st.write(df)
+
+  st.write("Conference Call Scenario")
+  link1 = '[Conference Call Scenario](http://english-scenario.streamlit.app)'
+  st.markdown(link1, unsafe_allow_html=True)
+
 else:
   st.write("")
 
