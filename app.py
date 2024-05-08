@@ -50,7 +50,7 @@ if password_input == "cmcpl":
 
   with tab4:
     #tab 4를 누르면 표시될 내용
-    for index, row in dadta.iterrows():
+    for index, row in data.iterrows():
       english_sentence = row['English']
       korean_translation = row['Korean']
       speaker = row['Name']
