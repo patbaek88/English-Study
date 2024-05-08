@@ -35,7 +35,7 @@ if password_input == "cmcpl":
   #if st.button("Answer"):
   #  st.write(df_answer)
 
-  tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English-Audio', Scenario])
+  tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English-Audio', 'Scenario'])
   with tab1:
     #tab A 를 누르면 표시될 내용
     st.table(df_quiz)
