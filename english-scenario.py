@@ -20,7 +20,8 @@ if password_input == "cmcpl":
       english_sentence = row['English']
       korean_translation = row['Korean']
       speaker = row['Name']
-      order = row['Order']
+      #order = row['Order']
+      order = index['Order']
       tts=gTTS(english_sentence, lang='en')
       audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
       tts.save(audio_file_path)
