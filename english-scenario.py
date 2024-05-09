@@ -9,7 +9,7 @@ if password_input == "cmcpl":
   # scenario 데이터 불러오기
   data = pd.read_csv('scenario.csv')
   data1 = pd.read_csv('scenario.csv')
-  data1 = data1.set_index('Order', inplace=True)
+  data1.set_index('Order', inplace=True)
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
   
