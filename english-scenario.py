@@ -13,8 +13,8 @@ if password_input == "cmcpl":
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
 
-  st.write("Biweekly Conference Call Scenario")
-  st.write("Participants"
+  st.title("Biweekly Conference Call Scenario")
+  st.write("Participants")
   st.write("From LG Chem:")
   st.write("  Alex Park - Project Manager")
   st.write("  Jenny Lee - Regulatory Affairs Specialist")
