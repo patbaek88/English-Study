@@ -25,7 +25,8 @@ if password_input == "cmcpl":
       tts.save(audio_file_path)
       st.write(f"{order}. {speaker}")
       st.audio(audio_file_path)
-      #st.write(f"{english_sentence}")
+      if st.button("Show Text"):
+        st.write(f"{english_sentence}")
       #st.write(f"{korean_translation}")
       st.write("")
         
