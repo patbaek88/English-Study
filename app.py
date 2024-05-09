@@ -20,13 +20,10 @@ if password_input == "cmcpl":
   tts.write_to_fp(sound_file)
 
   # scenario 데이터 불러오기
-  data = pd.read_csv('scenario.csv')
-  temp_audio_dir = 'temp_audio'
-  os.makedirs(temp_audio_dir, exist_ok=True)
+  #data = pd.read_csv('scenario.csv')
+  #temp_audio_dir = 'temp_audio'
+  #os.makedirs(temp_audio_dir, exist_ok=True)
 
-
-
-  
 
   st.title('English Quiz')  # 타이틀명 지정
   st.write("")
@@ -36,7 +33,7 @@ if password_input == "cmcpl":
   #if st.button("Answer"):
   #  st.write(df_answer)
 
-  tab1, tab2, tab3, tab4, tab5 = st.tabs(['Korean' , 'English', 'English-Audio', 'Scenario-Audio', 'Scenario-Text'])
+  tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English-Audio'])
   with tab1:
     #tab A 를 누르면 표시될 내용
     st.table(df_quiz)
@@ -49,25 +46,6 @@ if password_input == "cmcpl":
     #tab C를 누르면 표시될 내용 
     st.audio(sound_file)
 
-  with tab4:
-    #tab 4를 누르면 표시될 내용
-    for index, row in data.iterrows():
-      english_sentence = row['English']
-      korean_translation = row['Korean']
-      speaker = row['Name']
-      order = row['Order']
-      tts=gTTS(english_sentence, lang='en')
-      audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
-      tts.save(audio_file_path)
-      st.write(f"{order}. {speaker}")
-      st.audio(audio_file_path)
-      #st.write(f"{english_sentence}")
-      #st.write(f"{korean_translation}")
-      st.write("")
-        
-  with tab5:  
-    st.write(data, hide_index = True)
-    
   if st.button("Reload"):
     st.write("")
 
@@ -79,8 +57,9 @@ if password_input == "cmcpl":
 
   #st.write(df)
 
-  st.write("Conference Call Scenario")
-  link1 = '[Conference Call Scenario](http://english-scenario.streamlit.app)'
+  st.write("")
+  st.write("")
+  link1 = '[Conference Call Scenario Link](http://english-scenario.streamlit.app)'
   st.markdown(link1, unsafe_allow_html=True)
 
 else:
