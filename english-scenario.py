@@ -8,7 +8,7 @@ password_input = st.text_input("암호를 입력해주세요",type= "password")
 if password_input == "cmcpl":
   # scenario 데이터 불러오기
   data = pd.read_csv('scenario.csv')
-  data.set_index('Order', inplace=True)
+  data = data.set_index('Order', inplace=True)
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
   
