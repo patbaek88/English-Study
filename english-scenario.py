@@ -12,7 +12,19 @@ if password_input == "cmcpl":
   data1.set_index('Order', inplace=True)
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
-  
+
+  st.write("Biweekly Conference Call Scenario")
+  st.write("Participants"
+  st.write("From LG Chem:")
+  st.write("  Alex Park - Project Manager")
+  st.write("  Jenny Lee - Regulatory Affairs Specialist")
+  st.write("From Thermo Fisher Scientific (TFS):")
+  st.write("  Dr. Robert Smith - Clinical Operations Manager")
+  st.write("  Karen Davis - Quality Assurance Lead")
+  st.write("  Mark Johnson - Production Supervisor")
+  st.write("")
+  st.write("Scenario:")
+
 
   for index, row in data.iterrows():
     english_sentence = row['English']
