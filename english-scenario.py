@@ -14,28 +14,23 @@ if password_input == "cmcpl":
   os.makedirs(temp_audio_dir, exist_ok=True)
   
 
-  tab1, tab2 = st.tabs(['Scenario-Audio', 'Scenario-Text'])
-  with tab1:
-    #tab 1을 누르면 표시될 내용
-    for index, row in data.iterrows():
-      english_sentence = row['English']
-      korean_translation = row['Korean']
-      speaker = row['Name']
-      order = row['Order']
-      tts=gTTS(english_sentence, lang='en')
-      audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
-      tts.save(audio_file_path)
-      st.write(f"{order}. {speaker}")
-      st.audio(audio_file_path)
-      #if st.button("Show Text"):
-      #  st.write(f"{english_sentence}")
-      st.write(f"{korean_translation}")
-      st.write("")
+  for index, row in data.iterrows():
+    english_sentence = row['English']
+    korean_translation = row['Korean']
+    speaker = row['Name']
+    order = row['Order']
+    tts=gTTS(english_sentence, lang='en')
+    audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
+    tts.save(audio_file_path)
+    st.write(f"{order}. {speaker}")
+    st.audio(audio_file_path)
+    #if st.button("Show Text"):
+    #  st.write(f"{english_sentence}")
+    st.write(f"{korean_translation}")
+    st.write(f"{english_sentence}")
+    st.write("")
         
-  with tab2:  
-    st.write(data1)
-    
-
+  
 else:
   st.write("")
 
