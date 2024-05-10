@@ -13,6 +13,8 @@ if password_input == "cmcpl":
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
 
+  lang = st.selectbox('Select an English accent', ('en', 'en-au', 'en-ca', 'en-gb', 'en-gh', 'en-ie', 'en-in', 'en-ng', 'en-nz', 'en-ph', 'en-tz', 'en-uk', 'en-us', 'en-za'))
+
   st.title("Biweekly Conference Call Scenario")
   st.write("")
   st.write("Participants From LG Chem:")
@@ -32,7 +34,7 @@ if password_input == "cmcpl":
     korean_translation = row['Korean']
     speaker = row['Name']
     order = row['Order']
-    tts=gTTS(english_sentence, lang='en')
+    tts=gTTS(english_sentence, lang=lang)
     audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
     tts.save(audio_file_path)
     st.write(f"{order}. {speaker}")
