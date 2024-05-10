@@ -13,7 +13,8 @@ if password_input == "cmcpl":
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
 
-  lang = st.selectbox('Select an English accent', ( 'en-au', 'en-ca', 'en-gb', 'en-gh', 'en-ie', 'en-in', 'en-ng', 'en-nz', 'en-ph', 'en-tz', 'en-uk', 'en-us', 'en-za', 'en'))
+  lang = st.selectbox('Select an English accent', ( 'fr', 'ko', 'es','en'))
+  #lang = st.selectbox('Select an English accent', ( 'en-au', 'en-ca', 'en-gb', 'en-gh', 'en-ie', 'en-in', 'en-ng', 'en-nz', 'en-ph', 'en-tz', 'en-uk', 'en-us', 'en-za', 'en'))
 
   st.title("Biweekly Conference Call Scenario")
   st.write("")
