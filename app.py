@@ -17,7 +17,8 @@ if password_input == "cmcpl":
   df = dataframe[dataframe['Topic'].isin(selected_topics)]
   
   # n개의 무작위 샘플 추출
-  df_samples = df.sample(n=1)
+  n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
+  df_samples = df.sample(n=n_quiz)
   df_quiz = df_samples.loc[:, ['Korean']]
   df_answer = df_samples.loc[:, ['English']]
   quiz = df_quiz.iloc[0,0]
