@@ -84,7 +84,7 @@ if password_input == "cmcpl":
   #audio_file_all = open('combined_all.mp3', 'rb')
   #st.audio(audio_file_all.read(), format='audio/mp3')
 
-  audio = AudioSegment.from_file(combined_all.mp3, format="mp3")
+  audio = AudioSegment.from_file("combined_all.mp3", format="mp3")
 
         # 변환된 WAV 파일을 메모리에 저장
   wav_io = io.BytesIO()
