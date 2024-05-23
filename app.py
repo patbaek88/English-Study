@@ -65,9 +65,14 @@ if password_input == "cmcpl":
   with st.expander('Show All Sentences'):
       st.write(df)
 
-  audio_file = open('combined_all.mp3', 'rb')
-  st.audio(audio_file.read(), format='audio/mp3')
+  st.write("모든 문장 듣기")
+  audio_file_all = open('combined_all.mp3', 'rb')
+  st.audio(audio_file_all.read(), format='audio/mp3')
 
+  st.write("직장인을 위한 영어패턴1-25 듣기")
+  audio_file1 = open('combined1.mp3', 'rb')
+  st.audio(audio_file1.read(), format='audio/mp3')
+  
   #st.write(df)
 
   st.write("")
