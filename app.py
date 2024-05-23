@@ -24,9 +24,9 @@ if password_input == "cmcpl":
   df_answer = df_samples.loc[:, ['English']]
   quiz = df_quiz.iloc[0,0]
   answer = df_answer.iloc[0,0]
-  #sound_file = BytesIO()
+  sound_file = BytesIO()
   tts = gTTS(answer, lang='en')
-  #tts.write_to_fp(sound_file)
+  tts.write_to_fp(sound_file)
 
   # scenario 데이터 불러오기
   #data = pd.read_csv('scenario.csv')
