@@ -65,7 +65,9 @@ if password_input == "cmcpl":
   with st.expander('Show All Sentences'):
       st.write(df)
 
-  
+  audio_file = open('combined_all.mp3', 'rb')
+  st.audio(audio_file.read(), format='audio/mp3')
+
   #st.write(df)
 
   st.write("")
