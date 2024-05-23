@@ -3,6 +3,7 @@ import pandas as pd
 from gtts import gTTS
 from io import BytesIO
 import os
+from pydub import AudioSegment
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
