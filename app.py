@@ -11,9 +11,9 @@ if password_input == "cmcpl":
   # review 데이터 불러오기
   dataframe = pd.read_csv('review.csv')
 
-  st.header("학습 주제선택")
+
   # Create Radio Buttons
-  topic=st.radio(label = 'Radio buttons', options = ['모두', '직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'])
+  topic=st.radio(label = '학습 주제선택', options = ['모두', '직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'])
   if topic == '모두':
     selected_topics =  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개']
   elif topic == '직장인을 위한 영어패턴1-25':
