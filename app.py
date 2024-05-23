@@ -23,7 +23,7 @@ if password_input == "cmcpl":
   df_quiz = df_samples.loc[:, ['Korean']]
   df_answer = df_samples.loc[:, ['English']]
   quiz = df_quiz.iloc[0,0]
-  answer = df_answer.iloc[0,o]
+  answer = df_answer.iloc[0,0]
   sound_file = BytesIO()
   tts = gTTS(answer, lang='en')
   tts.write_to_fp(sound_file)
