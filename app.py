@@ -81,9 +81,20 @@ if password_input == "cmcpl":
 
   st.write("")
   st.write("모든 문장 듣기")
-  audio_file_all = open('combined_all.mp3', 'rb')
-  st.audio(audio_file_all.read(), format='audio/mp3')
+  #audio_file_all = open('combined_all.mp3', 'rb')
+  #st.audio(audio_file_all.read(), format='audio/mp3')
 
+  audio = AudioSegment.from_file(combined_all.mp3, format="mp3")
+
+        # 변환된 WAV 파일을 메모리에 저장
+   wav_io = io.BytesIO()
+   audio.export(wav_io, format="wav")
+   wav_io.seek(0)
+        
+        # 변환된 파일을 재생
+   st.audio(wav_io, format='audio/wav')
+
+  
   st.write("직장인을 위한 영어패턴1-25 듣기")
   audio_file1 = open('combined1.mp3', 'rb')
   st.audio(audio_file1.read(), format='audio/mp3')
@@ -113,5 +124,4 @@ if password_input == "cmcpl":
 
 else:
   st.write("")
-
-
+  
