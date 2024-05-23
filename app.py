@@ -62,30 +62,7 @@ if password_input == "cmcpl":
   with st.expander('Show All Sentences'):
       st.write(df)
 
-  # mp3 파일 생성
-  mp3_files = []
-  tts_korean = gTTS(quiz, lang='ko')
-  tts_english = gTTS(answer, lang='en')
-  mp3_files.append(tts_korean)
-  mp3_files.append(tts_english)
-                    
-  #for i in range(len(df)):
-  #    tts_korean = gTTS(df.loc[i, 'Korean'], lang='ko')
-  #    tts_korean.save('korean_{}.mp3'.format(i))
-  #    mp3_files.append('korean_{}.mp3'.format(i))
-  #    tts_english = gTTS(df.loc[i, 'English'], lang='en')
-  #    tts_english.save('english_{}.mp3'.format(i))
-  #    mp3_files.append('english_{}.mp3'.format(i))
-
-  # mp3 파일 합치기
-  combined = AudioSegment.empty()
-  for mp3_file in mp3_files:
-      sound = AudioSegment.from_mp3(mp3_file)
-      combined += sound
-
-  # 합쳐진 mp3 파일 저장
-  st.audio(combined)
-
+  
   #st.write(df)
 
   st.write("")
