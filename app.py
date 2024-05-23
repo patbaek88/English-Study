@@ -8,7 +8,12 @@ password_input = st.text_input("암호를 입력해주세요",type= "password")
 
 if password_input == "cmcpl":
   # review 데이터 불러오기
-  df = pd.read_csv('review.csv')
+  dataframe = pd.read_csv('review.csv')
+
+  selected_topics = st.multiselect('학습 주제 선택',  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'],
+    default= ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'])
+
+  df = dataframe[dataframe['Topic'].isin(selected_topics)]
   
   # n개의 무작위 샘플 추출
   df_samples = df.sample(n=1)
