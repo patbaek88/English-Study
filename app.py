@@ -87,12 +87,12 @@ if password_input == "cmcpl":
   audio = AudioSegment.from_file(combined_all.mp3, format="mp3")
 
         # 변환된 WAV 파일을 메모리에 저장
-   wav_io = io.BytesIO()
-   audio.export(wav_io, format="wav")
-   wav_io.seek(0)
+  wav_io = io.BytesIO()
+  audio.export(wav_io, format="wav")
+  wav_io.seek(0)
         
         # 변환된 파일을 재생
-   st.audio(wav_io, format='audio/wav')
+  st.audio(wav_io, format='audio/wav')
 
   
   st.write("직장인을 위한 영어패턴1-25 듣기")
