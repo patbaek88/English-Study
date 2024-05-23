@@ -72,6 +72,10 @@ if password_input == "cmcpl":
   st.write("직장인을 위한 영어패턴1-25 듣기")
   audio_file1 = open('combined1.mp3', 'rb')
   st.audio(audio_file1.read(), format='audio/mp3')
+
+  st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
+  audio_file1 = open('combined1.mp3', 'rb')
+  st.audio(audio_file1.read(), format='audio/mp3')
   
   #st.write(df)
 
