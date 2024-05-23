@@ -17,12 +17,13 @@ if password_input == "cmcpl":
   df = dataframe[dataframe['Topic'].isin(selected_topics)]
   
   # n개의 무작위 샘플 추출
-  n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
+  #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
+  n_quiz =1
   df_samples = df.sample(n=n_quiz)
   df_quiz = df_samples.loc[:, ['Korean']]
   df_answer = df_samples.loc[:, ['English']]
-  quiz = df_quiz.iloc[0,:]
-  answer = df_answer.iloc[0,:]
+  quiz = df_quiz.iloc[0,0]
+  answer = df_answer.iloc[0,o]
   sound_file = BytesIO()
   tts = gTTS(answer, lang='en')
   tts.write_to_fp(sound_file)
@@ -51,7 +52,8 @@ if password_input == "cmcpl":
     st.table(df_answer)
 
   with tab3:
-    #tab C를 누르면 표시될 내용 
+    #tab C를 누르면 표시될 내용
+    
     st.audio(sound_file)
 
   if st.button("Reload"):
