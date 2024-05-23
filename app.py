@@ -20,6 +20,7 @@ if password_input == "cmcpl":
   df_samples = df.sample(n=1)
   df_quiz = df_samples.loc[:, ['Korean']]
   df_answer = df_samples.loc[:, ['English']]
+  quiz = df_quiz.iloc[0,0]
   answer = df_answer.iloc[0,0]
   sound_file = BytesIO()
   tts = gTTS(answer, lang='en')
@@ -63,8 +64,8 @@ if password_input == "cmcpl":
 
   # mp3 파일 생성
   mp3_files = []
-  tts_korean = gTTS(df_quiz, lang='ko')
-  tts_english = gTTS(df_answer, lang='en')
+  tts_korean = gTTS(quiz, lang='ko')
+  tts_english = gTTS(answer, lang='en')
   mp3_files.append(tts_korean)
   mp3_files.append(tts_english)
                     
