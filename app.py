@@ -54,7 +54,7 @@ if password_input == "cmcpl":
   with tab3:
     #tab C를 누르면 표시될 내용
     
-    st.audio(tts)
+    st.audio(sound_file)
 
   if st.button("Reload"):
     st.write("")
