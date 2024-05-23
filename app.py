@@ -61,7 +61,7 @@ if password_input == "cmcpl":
 
   st.write("")
   #st.write('All Sentences for the Quiz')
-  with st.expander('Show All Sentences'):
+  with st.expander('선택한 학습 주제 모든 문장 보기'):
       st.write(df)
 
   st.write("")
