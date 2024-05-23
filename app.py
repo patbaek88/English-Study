@@ -74,16 +74,16 @@ if password_input == "cmcpl":
   st.audio(audio_file_all.read(), format='audio/mp3')
 
   st.write("직장인을 위한 영어패턴1-25 듣기")
-  audio_file1 = open('combined1.mp3', 'rb')
-  st.audio(audio_file1.read(), format='audio/mp3')
+  #audio_file1 = open('combined1.mp3', 'rb')
+  #st.audio(audio_file1.read(), format='audio/mp3')
 
   st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
-  audio_file2 = open('combined2.mp3', 'rb')
-  st.audio(audio_file2.read(), format='audio/mp3')
+  #audio_file2 = open('combined2.mp3', 'rb')
+  #st.audio(audio_file2.read(), format='audio/mp3')
 
   st.write("원어민이 가장 많이 쓰는 구동사 30개 듣기")
-  audio_file3 = open('combined3.mp3', 'rb')
-  st.audio(audio_file3.read(), format='audio/mp3')
+  #audio_file3 = open('combined3.mp3', 'rb')
+  #st.audio(audio_file3.read(), format='audio/mp3')
 
   st.write("일상 영어 회화 패턴 20개 듣기")
   #audio_file4 = open('combined4.mp3', 'rb')
