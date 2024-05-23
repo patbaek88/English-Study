@@ -82,12 +82,12 @@ if password_input == "cmcpl":
   st.audio(audio_file3.read(), format='audio/mp3')
 
   st.write("일상 영어 회화 패턴 20개 듣기")
-  audio_file4 = open('combined1.mp3', 'rb')
-  st.audio(audio_file4.read(), format='audio/mp3')
+  #audio_file4 = open('combined1.mp3', 'rb')
+  #st.audio(audio_file4.read(), format='audio/mp3')
 
   st.write("회사에서 지겹도록 듣게되는 영어 문장 40개")
-  audio_file5 = open('combined1.mp3', 'rb')
-  st.audio(audio_file5.read(), format='audio/mp3')
+  #audio_file5 = open('combined1.mp3', 'rb')
+  #st.audio(audio_file5.read(), format='audio/mp3')
   
   #st.write(df)
 
