@@ -50,10 +50,9 @@ if password_input == "cmcpl":
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
 
-
-  st.subheader('English Quiz')  # 타이틀명 지정
   st.write("")
-
+  st.subheader('English Quiz')  # 타이틀명 지정
+  
   # n개의 무작위 샘플 추출
   #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
   n_quiz =1
