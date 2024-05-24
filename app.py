@@ -84,7 +84,7 @@ if password_input == "cmcpl":
   st.write("모든 문장 듣기")
   #audio_file_all = open('combined_all.m4a', 'rb')
   #st.audio(audio_file_all.read(), format='audio/m4a')
-  st.audio('combined_all.m4a')
+  st.audio('combined_all.mp3')
   
   st.write("직장인을 위한 영어패턴1-25 듣기")
   audio_file1 = open('combined1.m4a', 'rb')
