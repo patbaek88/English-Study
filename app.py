@@ -31,7 +31,18 @@ if password_input == "cmcpl":
   #  default= ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'])
 
   df = dataframe[dataframe['Topic'].isin(selected_topics)]
-  
+
+
+
+  st.write("")
+  #st.write('All Sentences for the Quiz')
+  with st.expander('선택한 학습 주제 모든 문장 보기'):
+      st.write(df)
+
+
+  st.subheader('English Quiz')  # 타이틀명 지정
+  st.write("")
+
   # n개의 무작위 샘플 추출
   #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
   n_quiz =1
@@ -43,21 +54,7 @@ if password_input == "cmcpl":
   sound_file = BytesIO()
   tts = gTTS(answer, lang='en')
   tts.write_to_fp(sound_file)
-
-  # scenario 데이터 불러오기
-  #data = pd.read_csv('scenario.csv')
-  #temp_audio_dir = 'temp_audio'
-  #os.makedirs(temp_audio_dir, exist_ok=True)
-
-
-  st.title('English Quiz')  # 타이틀명 지정
-  st.write("")
   
-  #st.write(df_quiz)
-
-  #if st.button("Answer"):
-  #  st.write(df_answer)
-
   tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English-Audio'])
   with tab1:
     #tab A 를 누르면 표시될 내용
@@ -74,11 +71,6 @@ if password_input == "cmcpl":
 
   if st.button("Reload"):
     st.write("")
-
-  st.write("")
-  #st.write('All Sentences for the Quiz')
-  with st.expander('선택한 학습 주제 모든 문장 보기'):
-      st.write(df)
 
   st.write("")
   st.write("모든 문장 듣기")
