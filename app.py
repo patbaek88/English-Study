@@ -34,9 +34,8 @@ if password_input == "cmcpl":
 
 
 
-  st.write("")
-  #st.write('All Sentences for the Quiz')
-  with st.expander('선택한 학습 주제 모든 문장 보기'):
+  #st.write("")
+  with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
 
 
@@ -73,6 +72,7 @@ if password_input == "cmcpl":
     st.write("")
 
   st.write("")
+  st.subheader('Korean-English Audio')  # 타이틀명 지정
   st.write("모든 문장 듣기")
   st.audio('combined_all.mp3')
   
