@@ -82,28 +82,28 @@ if password_input == "cmcpl":
 
   st.write("")
   st.write("모든 문장 듣기")
-  audio_file_all = open('combined_all.mp3', 'rb')
-  st.audio(audio_file_all.read(), format='audio/mp3')
+  audio_file_all = open('combined_all.m4a', 'rb')
+  st.audio(audio_file_all.read(), format='audio/m4a')
   
   st.write("직장인을 위한 영어패턴1-25 듣기")
-  audio_file1 = open('combined1.mp3', 'rb')
-  st.audio(audio_file1.read(), format='audio/mp3')
+  audio_file1 = open('combined1.m4a', 'rb')
+  st.audio(audio_file1.read(), format='audio/m4a')
 
   st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
-  audio_file2 = open('combined2.mp3', 'rb')
-  st.audio(audio_file2.read(), format='audio/mp3')
+  audio_file2 = open('combined2.m4a', 'rb')
+  st.audio(audio_file2.read(), format='audio/m4a')
 
   st.write("원어민이 가장 많이 쓰는 구동사 30개 듣기")
-  audio_file3 = open('combined3.mp3', 'rb')
-  st.audio(audio_file3.read(), format='audio/mp3')
+  audio_file3 = open('combined3.m4a', 'rb')
+  st.audio(audio_file3.read(), format='audio/m4a')
 
   st.write("일상 영어 회화 패턴 20개 듣기")
-  audio_file4 = open('combined4.mp3', 'rb')
-  st.audio(audio_file4.read(), format='audio/mp3')
+  audio_file4 = open('combined4.m4a', 'rb')
+  st.audio(audio_file4.read(), format='audio/m4a')
 
   st.write("회사에서 지겹도록 듣게되는 영어 문장 40개")
-  audio_file5 = open('combined5.mp3', 'rb')
-  st.audio(audio_file5.read(), format='audio/mp3')
+  audio_file5 = open('combined5.m4a', 'rb')
+  st.audio(audio_file5.read(), format='audio/m4a')
   
   #st.write(df)
 
