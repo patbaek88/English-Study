@@ -17,16 +17,28 @@ if password_input == "cmcpl":
   topic=st.radio(label = '학습 주제선택', options = ['모두', '직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'])
   if topic == '모두':
     selected_topics =  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개']
+    st.write("모든 문장 듣기")
+    st.audio('combined_all.m4a')
   elif topic == '직장인을 위한 영어패턴1-25':
     selected_topics = ['직장인을 위한 영어패턴1-25']
+    st.write("직장인을 위한 영어패턴1-25 듣기")
+    st.audio('combined1.m4a')
   elif topic == '미국 직장인이 매일 쓰는 영어 100문장':
     selected_topics = ['미국 직장인이 매일 쓰는 영어 100문장']
+    st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
+    st.audio('combined2.m4a')
   elif topic == '원어민이 가장 많이 쓰는 구동사 30개':
     selected_topics = ['원어민이 가장 많이 쓰는 구동사 30개']
+    st.write("원어민이 가장 많이 쓰는 구동사 30개 듣기")
+    st.audio('combined3.m4a')
   elif topic == '일상 영어 회화 패턴 20개':
     selected_topics = ['일상 영어 회화 패턴 20개']
+    st.write("일상 영어 회화 패턴 20개 듣기")
+    st.audio('combined4.m4a')
   elif topic == '회사에서 지겹도록 듣게되는 영어 문장 40개':
     selected_topics = ['회사에서 지겹도록 듣게되는 영어 문장 40개']
+    st.write("회사에서 지겹도록 듣게되는 영어 문장 40개")
+    st.audio('combined5.m4a')
   #selected_topics = st.multiselect('학습 주제 선택',  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'],
   #  default= ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'])
 
@@ -71,25 +83,25 @@ if password_input == "cmcpl":
   if st.button("Reload"):
     st.write("")
 
-  st.write("")
-  st.subheader('Korean-English Audio')  # 타이틀명 지정
-  st.write("모든 문장 듣기")
-  st.audio('combined_all.m4a')
+  #st.write("")
+  #st.subheader('Korean-English Audio')  # 타이틀명 지정
+  #st.write("모든 문장 듣기")
+  #st.audio('combined_all.m4a')
   
-  st.write("직장인을 위한 영어패턴1-25 듣기")
-  st.audio('combined1.m4a')
+  #st.write("직장인을 위한 영어패턴1-25 듣기")
+  #st.audio('combined1.m4a')
 
-  st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
-  st.audio('combined2.m4a')
+  #st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
+  #st.audio('combined2.m4a')
 
-  st.write("원어민이 가장 많이 쓰는 구동사 30개 듣기")
-  st.audio('combined3.m4a')
+  #st.write("원어민이 가장 많이 쓰는 구동사 30개 듣기")
+  #st.audio('combined3.m4a')
 
-  st.write("일상 영어 회화 패턴 20개 듣기")
-  st.audio('combined4.m4a')
+  #st.write("일상 영어 회화 패턴 20개 듣기")
+  #st.audio('combined4.m4a')
 
-  st.write("회사에서 지겹도록 듣게되는 영어 문장 40개")
-  st.audio('combined5.m4a')
+  #st.write("회사에서 지겹도록 듣게되는 영어 문장 40개")
+  #st.audio('combined5.m4a')
   
   #st.write(df)
 
