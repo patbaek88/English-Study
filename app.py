@@ -54,7 +54,7 @@ if password_input == "cmcpl":
   tts = gTTS(answer, lang='en')
   tts.write_to_fp(sound_file)
   
-  tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English-Audio'])
+  tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English Audio'])
   with tab1:
     #tab A 를 누르면 표시될 내용
     st.table(df_quiz)
