@@ -6,6 +6,8 @@ import os
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 if password_input == "cmcpl":
+
+  st.header("Biweekly Conference Call Scenario")
   # scenario 데이터 불러오기
   filename = st.selectbox('시나리오 선택', ('scenario_8.csv', 'scenario_9.csv'))
   data = pd.read_csv(filename)
@@ -13,7 +15,6 @@ if password_input == "cmcpl":
   data1.set_index('Order', inplace=True)
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
-  st.header("Biweekly Conference Call Scenario")
   st.write("")
   st.subheader("Scenario:")
   st.write("Participants:")
