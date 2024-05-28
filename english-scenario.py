@@ -21,7 +21,11 @@ if password_input == "cmcpl":
   members = data1.groupby("Company")["Name"].unique()  
   st.write(members)
 
-  lang = st.selectbox('Select a contury of speakers', ( 'en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko'))
+
+  lang_df = pd.DataFrame({'Language':['English', 'Spanich', 'French', 'German', 'Italina', 'Chinese', 'Japanese', 'Korean'],
+                             'Code':['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko']})
+  lang1 = st.selectbox('Select a contury of speakers', lang_df['Language'])
+  lang = lang_df[lang_df['Language'] == lang1]['Code']
   accent = 'com'
   if lang == 'en':
     accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
