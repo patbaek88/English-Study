@@ -27,7 +27,7 @@ if password_input == "cmcpl":
   lang1 = st.selectbox('Select a language', lang_df['Language'])
   lang = lang_df[lang_df['Language'] == lang1]['Code']
   accent = 'com'
-  if lang == 'en':
+  if lang1 == 'English':
     accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
  
 
