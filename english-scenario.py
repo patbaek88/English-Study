@@ -25,7 +25,7 @@ if password_input == "cmcpl":
   lang_df = pd.DataFrame({'Language':['English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Korean'],
                              'Code':['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko']})
   lang1 = st.selectbox('Select a language', lang_df['Language'])
-  lang = lang_df[lang_df['Language'] == lang1]['Code']
+  lang2 = lang_df[lang_df['Language'] == lang1]['Code']
   accent = 'com'
   if lang1 == 'English':
     accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
@@ -36,7 +36,7 @@ if password_input == "cmcpl":
     korean_translation = row['Korean']
     speaker = row['Name']
     order = row['Order']
-    tts=gTTS(english_sentence, lang=lang, tld=accent)
+    tts=gTTS(english_sentence, lang=lang2, tld=accent)
     audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
     tts.save(audio_file_path)
     st.write(f"{order}. {speaker}")
