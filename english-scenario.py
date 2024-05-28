@@ -22,7 +22,7 @@ if password_input == "cmcpl":
   st.write(members)
 
   lang = st.selectbox('Select a contury of speakers', ( 'en', 'fr', 'zh-CN', 'zh-TW', 'pt', 'es', 'kr'))
-  accent = 'default'
+  accent = 'com'
   if lang == 'en':
     accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
  
