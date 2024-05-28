@@ -20,7 +20,9 @@ if password_input == "cmcpl":
   st.header("Biweekly Conference Call Scenario")
   st.write("")
   st.subheader("Scenario:")
-
+  st.write("Participants:")
+  members = data1.groupby("Company")["Name"].unique()  
+  st.write(members)
 
   for index, row in data.iterrows():
     english_sentence = row['English']
