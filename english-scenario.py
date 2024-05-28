@@ -21,15 +21,18 @@ if password_input == "cmcpl":
   members = data1.groupby("Company")["Name"].unique()  
   st.write(members)
 
-  accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
-  #lang = st.selectbox('Select an English accent', ( 'en-au', 'en-ca', 'en-gb', 'en-gh', 'en-ie', 'en-in', 'en-ng', 'en-nz', 'en-ph', 'en-tz', 'en-uk', 'en-us', 'en-za', 'en'))
+  lang = st.selectbox('Select a contury of speakers', ( 'en', 'fr', 'zh-CN', 'zh-TW', 'pt', 'es', 'kr'))
+  accent = 'default'
+  if lang == 'en':
+    accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
+ 
 
   for index, row in data.iterrows():
     english_sentence = row['English']
     korean_translation = row['Korean']
     speaker = row['Name']
     order = row['Order']
-    tts=gTTS(english_sentence, lang='en', tld=accent)
+    tts=gTTS(english_sentence, lang=lang, tld=accent)
     audio_file_path = os.path.join(temp_audio_dir, f'audio_{index}.mp3')
     tts.save(audio_file_path)
     st.write(f"{order}. {speaker}")
