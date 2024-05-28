@@ -19,7 +19,7 @@ if password_input == "cmcpl":
 
   st.header("Biweekly Conference Call Scenario")
   st.write("")
-  st.write("Scenario:")
+  st.subheader("Scenario:")
 
 
   for index, row in data.iterrows():
