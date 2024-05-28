@@ -13,16 +13,15 @@ if password_input == "cmcpl":
   data1.set_index('Order', inplace=True)
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
-
-  accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
-  #lang = st.selectbox('Select an English accent', ( 'en-au', 'en-ca', 'en-gb', 'en-gh', 'en-ie', 'en-in', 'en-ng', 'en-nz', 'en-ph', 'en-tz', 'en-uk', 'en-us', 'en-za', 'en'))
-
   st.header("Biweekly Conference Call Scenario")
   st.write("")
   st.subheader("Scenario:")
   st.write("Participants:")
   members = data1.groupby("Company")["Name"].unique()  
   st.write(members)
+
+  accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
+  #lang = st.selectbox('Select an English accent', ( 'en-au', 'en-ca', 'en-gb', 'en-gh', 'en-ie', 'en-in', 'en-ng', 'en-nz', 'en-ph', 'en-tz', 'en-uk', 'en-us', 'en-za', 'en'))
 
   for index, row in data.iterrows():
     english_sentence = row['English']
