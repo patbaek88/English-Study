@@ -7,9 +7,9 @@ import os
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 if password_input == "cmcpl":
 
-  st.header("Biweekly Conference Call Scenario")
+  st.header("Conference Call Scenario")
   # scenario 데이터 불러오기
-  filename = st.selectbox('시나리오 선택', ('scenario_8.csv', 'scenario_9.csv'))
+  filename = st.selectbox('Select a scenario', ('scenario_8.csv', 'scenario_9.csv'))
   data = pd.read_csv(filename)
   data1 = pd.read_csv(filename)
   data1.set_index('Order', inplace=True)
