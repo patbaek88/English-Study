@@ -22,9 +22,9 @@ if password_input == "cmcpl":
   st.write(members)
 
 
-  lang_df = pd.DataFrame({'Language':['English', 'Spanich', 'French', 'German', 'Italina', 'Chinese', 'Japanese', 'Korean'],
+  lang_df = pd.DataFrame({'Language':['English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Korean'],
                              'Code':['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko']})
-  lang1 = st.selectbox('Select a contury of speakers', lang_df['Language'])
+  lang1 = st.selectbox('Select a language', lang_df['Language'])
   lang = lang_df[lang_df['Language'] == lang1]['Code']
   accent = 'com'
   if lang == 'en':
