@@ -25,7 +25,7 @@ if password_input == "cmcpl":
   lang_df = pd.DataFrame({'Language':['English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Korean'],  'Code':['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko']})
   lang_select = st.selectbox('Select a language', lang_df['Language'])
   lang_code = lang_df[lang_df['Language'] == lang_select]['Code']
-  lang = lang_code[0]
+  lang = lang_code.values
   #lang = st.selectbox('Select a language', ['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko'])
   accent = 'com'
   if lang == 'en':
