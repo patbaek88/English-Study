@@ -22,12 +22,13 @@ if password_input == "cmcpl":
   st.write(members)
 
 
-  lang_df = pd.DataFrame({'Language':['English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Korean'],
+  #lang_df = pd.DataFrame({'Language':['English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Korean'],
                              'Code':['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko']})
-  lang_select = st.selectbox('Select a language', lang_df['Language'])
-  lang = str(lang_df[lang_df['Language'] == lang_select]['Code'])
+  #lang_select = st.selectbox('Select a language', lang_df['Language'])
+  #lang = str(lang_df[lang_df['Language'] == lang_select]['Code'])
+  lang = st.selectbox('Select a language', 'en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko')
   accent = 'com'
-  if lang_select == 'English':
+  if lang == 'en':
     accent = st.selectbox('Select an English accent', ( 'us', 'com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za'))
  
 
