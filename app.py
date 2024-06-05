@@ -29,7 +29,7 @@ if password_input == "cmcpl":
   elif topic == '직장인을 위한 영어패턴1-25':
     selected_topics = ['직장인을 위한 영어패턴1-25']
     st.write("직장인을 위한 영어패턴1-25 듣기")
-    st.audio('combined1.m4a', loop = loop)
+    st.audio(data =['combined1.m4a', 'combined2.m4a'], loop = loop)
   elif topic == '미국 직장인이 매일 쓰는 영어 100문장':
     selected_topics = ['미국 직장인이 매일 쓰는 영어 100문장']
     st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
