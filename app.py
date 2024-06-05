@@ -23,9 +23,9 @@ if password_input == "cmcpl":
     loop = False
     
   if topic == '모두':
-    selected_topics =  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개']
+    selected_topics =  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개', '비즈니스 이메일 핵심패턴 15개']
     st.write("모든 문장 듣기")
-    st.audio('combined_all.m4a', loop = loop)
+    st.audio('combined_all_6.m4a', loop = loop)
   elif topic == '직장인을 위한 영어패턴1-25':
     selected_topics = ['직장인을 위한 영어패턴1-25']
     st.write("직장인을 위한 영어패턴1-25 듣기")
