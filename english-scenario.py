@@ -9,7 +9,7 @@ if password_input == "cmcpl":
 
   st.header("Conference Call Scenario")
   # scenario 데이터 불러오기
-  filename = st.selectbox('Select a scenario', ('scenario_10.csv', 'scenario_9.csv', 'scenario_8.csv'))
+  filename = st.selectbox('Select a scenario', ('scenario_10_TFS_contamination issue.csv', 'scenario_9_Innovent_CDMO issue.csv', 'scenario_8_TFS_packaging issue.csv', 'scenario_7_TFS_coating issue_2.csv', 'scenario_6_TFS_coating issue_1.csv', 'scenario_5b_Innovent_delivery issue.csv', 'scenario_5_Innovent_scale-up issue.csv', 'scenario_3_Innovent_kick-off_2.csv'))
   data = pd.read_csv(filename)
   data1 = pd.read_csv(filename)
   data1.set_index('Order', inplace=True)
