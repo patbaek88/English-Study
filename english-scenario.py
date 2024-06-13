@@ -34,12 +34,14 @@ if password_input == "cmcpl":
     accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
     accent = accent_code.iloc[0]
 
+  
   sound_file = BytesIO()
   text = ' '.join(data['English'].astype(str).tolist())
   tts = gTTS(text, lang=lang, tld=accent)
   tts.write_to_fp(sound_file)
   st.write("Play all the sentences")
   st.audio(sound_file)
+  st.write("")
 
   for index, row in data.iterrows():
     english_sentence = row['English']
