@@ -50,7 +50,7 @@ if password_input == "cmcpl":
     selected_topics = ['비즈니스 이메일 핵심패턴 15개']
     st.write("비즈니스 이메일 핵심패턴 15개 듣기")
     st.audio('combined6.m4a', loop = loop)
-  elif topic == '비즈니스 이메일 핵심패턴 15개':
+  elif topic == '직장인을 위한 전화 영어 표현 10개':
     selected_topics = ['직장인을 위한 전화 영어 표현 10개']
     st.write("직장인을 위한 전화 영어 표현 10개 듣기")
     st.audio('combined7.m4a', loop = loop)
