@@ -25,7 +25,7 @@ if password_input == "cmcpl":
   if topic == '모두':
     selected_topics =  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개', '비즈니스 이메일 핵심패턴 15개','직장인을 위한 전화 영어 표현 10개', '화상회의 시 꼭 필요한 영어표현 12개']
     st.write("모든 문장 듣기")
-    st.audio('combined_all_7.m4a', loop = loop)
+    st.audio('combined_all_8.m4a', loop = loop)
   elif topic == '직장인을 위한 영어패턴1-25':
     selected_topics = ['직장인을 위한 영어패턴1-25']
     st.write("직장인을 위한 영어패턴1-25 듣기")
@@ -56,7 +56,7 @@ if password_input == "cmcpl":
     st.audio('combined7.m4a', loop = loop)
   elif topic == '화상회의 시 꼭 필요한 영어표현 12개':
     selected_topics = ['화상회의 시 꼭 필요한 영어표현 12개']
-    st.write("직장인을 위한 전화 영어 표현 10개 듣기")
+    st.write("화상회의 시 꼭 필요한 영어표현 12개")
     st.audio('combined8.m4a', loop = loop)
   
   #selected_topics = st.multiselect('학습 주제 선택',  ['직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개'],
