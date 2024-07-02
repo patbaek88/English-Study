@@ -14,7 +14,7 @@ if password_input == "cmcpl":
   data = pd.read_csv(filename)
 
   expressions = data[['Exp_En', 'Exp_Kr']]
-  st.write(expressions)
+  st.dataframe(expressions)
 
   
   temp_audio_dir = 'temp_audio'
