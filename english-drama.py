@@ -13,7 +13,7 @@ if password_input == "cmcpl":
   filename = st.selectbox('Select a scenario', ('The Office_S01E01.csv','The Office_S01E02.csv'))
   data = pd.read_csv(filename)
 
-  expressions = data[['Exp_En', 'Exp_Kr']]
+  expressions = data[['Exp_En', 'Exp_Kr']].set_index('Exp_En')
   st.dataframe(expressions)
 
   
