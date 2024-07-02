@@ -8,9 +8,15 @@ password_input = st.text_input("암호를 입력해주세요",type= "password")
 if password_input == "cmcpl":
 
   st.header("English Drama Expressions")
+  st.write("")
   # scenario 데이터 불러오기
   filename = st.selectbox('Select a scenario', ('The Office_S01E01.csv','The Office_S01E02.csv'))
   data = pd.read_csv(filename)
+
+  expressions = data[['Exp_En', 'Exp_Kr']]
+  st.write(expressions)
+
+  
   temp_audio_dir = 'temp_audio'
   os.makedirs(temp_audio_dir, exist_ok=True)
   st.write("")
