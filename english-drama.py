@@ -13,8 +13,8 @@ if password_input == "cmcpl":
   filename = st.selectbox('Select a scenario', ('The Office_S01E01.csv','The Office_S01E02.csv'))
   data = pd.read_csv(filename)
 
-  #expressions = data[['Exp_En', 'Exp_Kr']]
-  st.write(data)
+  expressions = data[['Exp_En', 'Exp_Kr']]
+  st.write(expressions)
 
   
   temp_audio_dir = 'temp_audio'
