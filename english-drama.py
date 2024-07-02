@@ -11,6 +11,8 @@ if password_input == "cmcpl":
   # scenario 데이터 불러오기
   filename = st.selectbox('Select a scenario', ('The Office_S01E01.csv','The Office_S01E02.csv'))
   data = pd.read_csv(filename)
+  temp_audio_dir = 'temp_audio'
+  os.makedirs(temp_audio_dir, exist_ok=True)
   st.write("")
 
   lang_df = pd.DataFrame({'Language':['English', 'Spanish', 'French', 'German', 'Italian', 'Chinese', 'Japanese', 'Korean'],  'Code':['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko']})
