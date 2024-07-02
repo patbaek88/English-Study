@@ -29,7 +29,7 @@ if password_input == "cmcpl":
   #lang = st.selectbox('Select a language', ['en', 'es', 'fr', 'de', 'it', 'zh', 'ja', 'ko'])
   accent = 'com'
   if lang == 'en':
-    accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Afria'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
+    accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Africa'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
     accent_select = st.selectbox('Select an English accent', accent_df['Accent'])
     accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
     accent = accent_code.iloc[0]
