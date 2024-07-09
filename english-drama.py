@@ -13,8 +13,11 @@ if password_input == "cmcpl":
   filename = st.selectbox('Select a scenario', ('The Office_S01E01.csv','The Office_S01E02.csv'))
   data = pd.read_csv(filename)
 
+  exp_df = pd.read_csv('The Office_S01_expressions.csv')
+
   expressions = data[['Exp_En', 'Exp_Kr']].set_index('Exp_En')
-  st.dataframe(expressions)
+  df = exp_df[exp_df['Episode'].isin(filename)]
+  st.dataframe(df)
 
   
   temp_audio_dir = 'temp_audio'
