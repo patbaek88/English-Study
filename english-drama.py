@@ -15,10 +15,9 @@ if password_input == "cmcpl":
 
   exp_df = pd.read_csv('The Office_S01_expressions.csv')
 
-  #expressions = data[['Exp_En', 'Exp_Kr']].set_index('Exp_En')
-  
   df = exp_df[(exp_df['Episode']==filename)]
-  st.dataframe(df)
+  expressions = df[['Exp_En', 'Exp_Kr']].set_index('Exp_En')
+  st.dataframe(expressions)
 
   
   temp_audio_dir = 'temp_audio'
