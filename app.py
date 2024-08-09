@@ -6,7 +6,8 @@ from io import BytesIO
 import os
 from pydub import AudioSegment
 
-from st_mic_recorder import st_mic_recorder
+#from st_mic_recorder import st_mic_recorder
+from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 import tempfile
 
@@ -106,7 +107,7 @@ if password_input == "cmcpl":
   
   with tab4:
     #tab D를 누르면 표시될 내용
-    audio_data = st_mic_recorder()
+    audio_data = mic_recorder()
 
     if audio_data is not None:
       with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
