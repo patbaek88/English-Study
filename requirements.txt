@@ -2,4 +2,3 @@ pandas
 gTTS
 pydub
 speech_recognition
-pyaudio
