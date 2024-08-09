@@ -127,8 +127,7 @@ if password_input == "cmcpl":
           st.write("Sorry, I could not understand the audio.")        
         except sr.RequestError as e:
           st.write("Could not request results from Google Web Speech API; {0}".format(e))
-    
-       os.remove(temp_audio_path)
+      os.remove(temp_audio_path)
   
   if st.button("Reload"):
     st.write("")
