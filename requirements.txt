@@ -4,3 +4,4 @@ gTTS
 pydub
 SpeechRecognition
 PyAudio
+https://files.pythonhosted.org/packages/3b/aa/3e1fd7d5f17e792e22bc139c6034855c0671237aee72fffb0427f78d88d7/PyAudio-0.2.11-cp39-cp39-win_amd64.whl
