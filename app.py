@@ -110,8 +110,10 @@ if password_input == "cmcpl":
     audio_data = mic_recorder()
 
     if audio_data is not None:
+      audio_stream = io.BytesIO(audio_data)
+      
       with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
-        temp_audio_file.write(audio_data)
+        temp_audio_file.write(audio_stream.read())
         temp_audio_path = temp_audio_file.name    
         
       r = sr.Recognizer()
