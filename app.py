@@ -6,7 +6,7 @@ from io import BytesIO
 import os
 from pydub import AudioSegment
 
-from streamlit_mic_recorder import st_mic_recorder
+from st_mic_recorder import st_mic_recorder
 import speech_recognition as sr
 import tempfile
 
