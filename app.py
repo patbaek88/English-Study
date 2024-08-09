@@ -5,6 +5,9 @@ import io
 from io import BytesIO
 import os
 from pydub import AudioSegment
+
+import sounddevice as sd
+import scipy.io.wavfile as wav
 import speech_recognition as sr
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
@@ -103,9 +106,16 @@ if password_input == "cmcpl":
   
   with tab4:
     #tab D를 누르면 표시될 내용
+    fs = 44100
+    duration = 5
     r = sr.Recognizer()
-    with sr.Microphone() as source:
-      st.write("Listening... Please speak.")
+    st.write("Recording... Please speak.")
+    recording = sd.rec(int(duration * fs), samplerate = fs, channels =2, dtype ='int16')
+    sd.wait()
+    st.write("Recording complete.")
+    wav.write("output.wav", fs, recording)
+    r = sr.Recognizer()
+    with sr.AudioFile("output.wav") as source:
       audio = r.listen(source)
 
       try:
