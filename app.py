@@ -6,8 +6,9 @@ from io import BytesIO
 import os
 from pydub import AudioSegment
 
+from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
-#import pyttsx3
+import tempfile
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -104,25 +105,30 @@ if password_input == "cmcpl":
     st.audio(sound_file)
   
   with tab4:
-    #tab D를 누르면 표시될 내용    
-    
-    st.write("Recording... Please speak.")    
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-      audio = r.listen(source)
+    #tab D를 누르면 표시될 내용
+    audio_data = st_mic_recorder()
 
-      try:
-        text = r.recognize_google(audio)
-        st.write("Recognized Text: " + text)
-        #return r.recognize_google(audio)
-      except sr.UnknownValueError:
-        st.write("Sorry, I could not understand the audio.")
-        #return None
-        
-      except sr.RequestError as e:
-        st.write("Could not request results from Google Web Speech API; {0}".format(e))
-        #return None
-  
+    if audio_data is not None:
+      with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
+        temp_audio_file.write(audio_data.getvalue())
+        temp_audio_path = temp_audio_file.name
+
+    
+
+    
+      st.write("Recording... Please speak.")    
+      r = sr.Recognizer()
+      with sr.Microphone() as source:
+        audio = r.record(source)
+        try:
+          text = r.recognize_google(audio)
+          st.write("Recognized Text: ", text)
+        except sr.UnknownValueError:
+          st.write("Sorry, I could not understand the audio.")        
+        except sr.RequestError as e:
+          st.write("Could not request results from Google Web Speech API; {0}".format(e))
+    
+       os.remove(temp_audio_path) 
   
   if st.button("Reload"):
     st.write("")
