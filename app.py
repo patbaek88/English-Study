@@ -6,9 +6,8 @@ from io import BytesIO
 import os
 from pydub import AudioSegment
 
-import sounddevice as sd
-import scipy.io.wavfile as wav
 import speech_recognition as sr
+import pyttsx3
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -105,27 +104,24 @@ if password_input == "cmcpl":
     st.audio(sound_file)
   
   with tab4:
-    #tab D를 누르면 표시될 내용
-    fs = 44100
-    duration = 5
+    #tab D를 누르면 표시될 내용    
     
-    st.write("Recording... Please speak.")
-    recording = sd.rec(int(duration * fs), samplerate = fs, channels =2, dtype ='int16')
-    sd.wait()
-    st.write("Recording complete.")
-    wav.write("output.wav", fs, recording)
-    
+    st.write("Recording... Please speak.")    
     r = sr.Recognizer()
-    with sr.AudioFile("output.wav") as source:
-      audio = r.record(source)
+    with sr.Microphone() as source:
+      audio = r.listen(source)
 
       try:
         text = r.recognize_google(audio)
-        st.write("Recognized Text:", text)
+        st.write("Recognized Text: " + text)
+        #return r.recognize_google(audio)
       except sr.UnknownValueError:
         st.write("Sorry, I could not understand the audio.")
+        #return None
+        
       except sr.RequestError as e:
         st.write("Could not request results from Google Web Speech API; {0}".format(e))
+        #return None
   
   
   if st.button("Reload"):
