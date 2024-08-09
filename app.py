@@ -118,9 +118,7 @@ if password_input == "cmcpl":
           with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
             temp_audio_file.write(audio_bytes)
             temp_audio_path = temp_audio_file.name 
-          else:
-            st.write("audio_data is not in bytes format")
-            
+          
           r = sr.Recognizer()
           with sr.AudioFile(temp_audio_path) as source:
             audio = r.record(source)
