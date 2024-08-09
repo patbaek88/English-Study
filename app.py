@@ -114,10 +114,10 @@ if password_input == "cmcpl":
     if audio_data is not None:
       try:
         st.write(f"audio_data type: {type(audio_data)}")
-        st.write(f"audio_data content: {audio_data}")
-        if isinstance(audio_data, dict) and "data" in audio_data:
-          audio_bytes = base64.b64decode(audio_data["data"].split(",")[1])
-          with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
+        #st.write(f"audio_data content: {audio_data}")
+        try:
+          audio_bytes=audio_data['bytes']
+          with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_audio_file:
             temp_audio_file.write(audio_bytes)
             temp_audio_path = temp_audio_file.name 
           
