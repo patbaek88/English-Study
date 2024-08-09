@@ -113,27 +113,29 @@ if password_input == "cmcpl":
     if audio_data is not None:
       try:
         st.write(f"audio_data type: {type(audio_data)}")
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
-          if isinstance(audio_data, bytes):
-            temp_audio_file.write(audio_data)
+        if isinstance(audio_data, dicts) and "data" in audio_data:
+          audio_bytes = base64.b64decode(audio_data["data"].split(",")[1])
+          with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
+            temp_audio_file.write(audio_bytes)
+            temp_audio_path = temp_audio_file.name 
           else:
             st.write("audio_data is not in bytes format")
-          
-        temp_audio_path = temp_audio_file.name    
-        
-        r = sr.Recognizer()
-        with sr.AudioFile(temp_audio_path) as source:
-          audio = r.record(source)
-          try:
-            text = r.recognize_google(audio)
-            st.write("Recognized Text: "+ text)
-          except sr.UnknownValueError:
-            st.write("Sorry, I could not understand the audio.")        
-          except sr.RequestError as e:
-            st.write("Could not request results from Google Web Speech API; {0}".format(e))
-        os.remove(temp_audio_path)
+            
+          r = sr.Recognizer()
+          with sr.AudioFile(temp_audio_path) as source:
+            audio = r.record(source)
+            try:
+              text = r.recognize_google(audio)
+              st.write("Recognized Text: "+ text)
+            except sr.UnknownValueError:
+              st.write("Sorry, I could not understand the audio.")        
+            except sr.RequestError as e:
+              st.write("Could not request results from Google Web Speech API; {0}".format(e))
+          os.remove(temp_audio_path)
+        else:
+          st.write("Audio data not found or in unexpected format")
       except Exception as e:
-        st.write(f"An error occurred: {e}")
+          st.write(f"An error occurred: {e}")
 
   
   if st.button("Reload"):
