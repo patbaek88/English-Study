@@ -118,7 +118,7 @@ if password_input == "cmcpl":
     
       st.write("Recording... Please speak.")    
       r = sr.Recognizer()
-      with sr.Microphone() as source:
+      with sr.AudioFile(temp_audio_path) as source:
         audio = r.record(source)
         try:
           text = r.recognize_google(audio)
