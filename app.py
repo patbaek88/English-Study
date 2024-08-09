@@ -132,8 +132,7 @@ if password_input == "cmcpl":
             except sr.RequestError as e:
               st.write("Could not request results from Google Web Speech API; {0}".format(e))
           os.remove(temp_audio_path)
-        else:
-          st.write("Audio data not found or in unexpected format")
+
       except Exception as e:
           st.write(f"An error occurred: {e}")
 
