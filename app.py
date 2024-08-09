@@ -10,7 +10,7 @@ from pydub import AudioSegment
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 import tempfile
-#from st_audiorec import st_audiorec
+
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
