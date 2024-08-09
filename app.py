@@ -108,15 +108,16 @@ if password_input == "cmcpl":
     #tab D를 누르면 표시될 내용
     fs = 44100
     duration = 5
-    r = sr.Recognizer()
+    
     st.write("Recording... Please speak.")
     recording = sd.rec(int(duration * fs), samplerate = fs, channels =2, dtype ='int16')
     sd.wait()
     st.write("Recording complete.")
     wav.write("output.wav", fs, recording)
+    
     r = sr.Recognizer()
     with sr.AudioFile("output.wav") as source:
-      audio = r.listen(source)
+      audio = r.record(source)
 
       try:
         text = r.recognize_google(audio)
