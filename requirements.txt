@@ -1,4 +1,6 @@
+streamlit
 pandas
 gTTS
 pydub
-speech_recognition
+SpeechRecognition
+PyAudio
