@@ -4,3 +4,4 @@ gTTS
 pydub
 streamlit-mic-recorder
 SpeechRecognition
+st_audiorec
