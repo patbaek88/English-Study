@@ -110,23 +110,26 @@ if password_input == "cmcpl":
     audio_data = mic_recorder()
 
     if audio_data is not None:
-      audio_stream = io.BytesIO(audio_data)
-      
-      with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
-        temp_audio_file.write(audio_stream.read())
-        temp_audio_path = temp_audio_file.name    
+      try:
+        audio_stream = io.BytesIO(audio_data)
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
+          temp_audio_file.write(audio_stream.read())
+          temp_audio_path = temp_audio_file.name    
         
-      r = sr.Recognizer()
-      with sr.AudioFile(temp_audio_path) as source:
-        audio = r.record(source)
-        try:
-          text = r.recognize_google(audio)
-          st.write("Recognized Text: ", text)
-        except sr.UnknownValueError:
-          st.write("Sorry, I could not understand the audio.")        
-        except sr.RequestError as e:
-          st.write("Could not request results from Google Web Speech API; {0}".format(e))
-      os.remove(temp_audio_path)
+        r = sr.Recognizer()
+        with sr.AudioFile(temp_audio_path) as source:
+          audio = r.record(source)
+          try:
+            text = r.recognize_google(audio)
+            st.write("Recognized Text: ", text)
+          except sr.UnknownValueError:
+            st.write("Sorry, I could not understand the audio.")        
+          except sr.RequestError as e:
+            st.write("Could not request results from Google Web Speech API; {0}".format(e))
+        os.remove(temp_audio_path)
+
+      except Exception as e:
+        st.write(f"An error occured: {e}")
   
   if st.button("Reload"):
     st.write("")
