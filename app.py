@@ -111,13 +111,9 @@ if password_input == "cmcpl":
 
     if audio_data is not None:
       with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio_file:
-        temp_audio_file.write(audio_data.getvalue())
-        temp_audio_path = temp_audio_file.name
-
-    
-
-    
-      st.write("Recording... Please speak.")    
+        temp_audio_file.write(audio_data)
+        temp_audio_path = temp_audio_file.name    
+        
       r = sr.Recognizer()
       with sr.AudioFile(temp_audio_path) as source:
         audio = r.record(source)
