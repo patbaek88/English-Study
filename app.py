@@ -6,7 +6,6 @@ from io import BytesIO
 import os
 from pydub import AudioSegment
 import speech_recognition as sr
-import pyaudio
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -87,9 +86,7 @@ if password_input == "cmcpl":
   sound_file = BytesIO()
   tts = gTTS(answer, lang='en')
   tts.write_to_fp(sound_file)
-
-  r = sr.Recognizer()
-  
+ 
   tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English Listening', 'Pronounciation Check'])
   with tab1:
     #tab A 를 누르면 표시될 내용
@@ -106,17 +103,18 @@ if password_input == "cmcpl":
   
   with tab4:
     #tab D를 누르면 표시될 내용
+    r = sr.Recognizer()
     with sr.Microphone() as source:
-      st.write("Please speak.")
+      st.write("Listening... Please speak.")
       audio = r.listen(source)
 
       try:
         text = r.recognize_google(audio)
-        st.write("Recognized text:", text)
+        st.write("Recognized Text:", text)
       except sr.UnknownValueError:
         st.write("Sorry, I could not understand the audio.")
       except sr.RequestError as e:
-        st.write("Could not request results from Google Web Speech API;{0}".format(e))
+        st.write("Could not request results from Google Web Speech API; {0}".format(e))
   
   
   if st.button("Reload"):
