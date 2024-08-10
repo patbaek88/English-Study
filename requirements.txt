@@ -4,4 +4,4 @@ gTTS
 pydub
 streamlit-mic-recorder
 SpeechRecognition
-ffmpeg-python
+imageio
