@@ -16,8 +16,6 @@ import imageio
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
 if password_input == "cmcpl":
-  ffmpeg_path = imageio.plugins.ffmpeg.download()
-  AudioSegment.converter = ffmpeg_path
                               
   
   # review 데이터 불러오기
