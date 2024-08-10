@@ -10,15 +10,14 @@ from pydub import AudioSegment
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 import tempfile
-from pydub.utils import which
+import imageio
 
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
 if password_input == "cmcpl":
-
-  AudioSegment.ffmpeg = which("ffmpeg")
-  AudioSegment.ffprobe = which("ffprobe")
+  ffmpeg_path = imageio.plugins.ffmpeg.download()
+  AudioSegment.converter = ffmpeg_path
                               
   
   # review 데이터 불러오기
