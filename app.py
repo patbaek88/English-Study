@@ -18,7 +18,7 @@ password_input = st.text_input("암호를 입력해주세요",type= "password")
 if password_input == "cmcpl":
 
   AudioSegment.ffmpeg = which("ffmpeg")
-  AudioSefment.ffprobe = which("ffprobe")
+  AudioSegment.ffprobe = which("ffprobe")
                               
   
   # review 데이터 불러오기
