@@ -10,16 +10,13 @@ from pydub import AudioSegment
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 import tempfile
-import imageio
+import ffmpeg
 
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
 if password_input == "cmcpl":
 
-  ffmpeg_path = imageio.plugins.ffmpeg.download()
-
-  os.environ["IMAGEIO_FFMPEG_EXE"] = ffmpeg_path
   
   # review 데이터 불러오기
   dataframe = pd.read_csv('review.csv')
@@ -126,8 +123,14 @@ if password_input == "cmcpl":
           temp_audio_path = temp_audio_file.name 
 
         wav_audio_path = temp_audio_path.replace(".mp4", ".wav")
-        audio = AudioSegment.from_file(temp_audio_path, format="mp4")
-        audio.export(wav_audio_path, format="wav")
+        (
+          ffmpeg
+          .input(temp_audio_path)
+          .output(wav_audio_path)
+          .run(quiet=True, overwrite_output = True)
+        )
+        #audio = AudioSegment.from_file(temp_audio_path, format="mp4")
+        #audio.export(wav_audio_path, format="wav")
 
         
         r = sr.Recognizer()
