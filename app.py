@@ -10,7 +10,6 @@ from pydub import AudioSegment
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 import tempfile
-import base64
 
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
@@ -119,18 +118,24 @@ if password_input == "cmcpl":
         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_audio_file:
           temp_audio_file.write(audio_bytes)
           temp_audio_path = temp_audio_file.name 
-          
+
+        wav_audio_path = temp_audio_path.replace(".mp4", ".wav")
+        audio = AudioSegment.from_file(temp_audio_path, format="mp4")
+        audio.export(wav_audio_path, format="wav")
+
+        
         r = sr.Recognizer()
-        with sr.AudioFile(temp_audio_path) as source:
-          audio = r.record(source)
+        with sr.AudioFile(wav_audio_path) as source:
+          audio_data = r.record(source)
           try:
-            text = r.recognize_google(audio)
+            text = r.recognize_google(audio_data)
             st.write("Recognized Text: "+ text)
           except sr.UnknownValueError:
             st.write("Sorry, I could not understand the audio.")        
           except sr.RequestError as e:
             st.write("Could not request results from Google Web Speech API; {0}".format(e))
         os.remove(temp_audio_path)
+        os.remove(wav_audio_path)
 
       except Exception as e:
           st.write(f"An error occurred: {e}")
