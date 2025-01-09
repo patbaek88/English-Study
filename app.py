@@ -168,14 +168,14 @@ if password_input == "cmcpl":
 
   
   if st.button("Reload"):
-    st.write(" ")
+    st.write("")
     #clear the use dsamples and last quiz to reset the state
     #st.session_state.used_samples = []
     #st.session_state.last_quiz = None
     #st.experimental_rerun()
 
-    st.write(" ")
-    st.write(" ")
+  st.write("")
+  st.write("")
   link1 = '[Conference Call Scenario Link](http://english-scenario.streamlit.app)'
   st.markdown(link1, unsafe_allow_html=True)
 
