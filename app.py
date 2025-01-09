@@ -82,72 +82,87 @@ if password_input == "cmcpl":
 
   st.write("")
   st.subheader('English Quiz')  # 타이틀명 지정
+
+  if 'used_samples' not in st.session_state:
+    st.session_state.used_samples =[]
+  if 'last_quiz' not in st.session_state:
+    st.session_state.last_quiz = None
   
   # n개의 무작위 샘플 추출
   #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
   n_quiz =1
-  df_samples = df.sample(n=n_quiz, replace=False)
-  df_quiz = df_samples.loc[:, ['Korean']]
-  df_answer = df_samples.loc[:, ['English']]
-  quiz = df_quiz.iloc[0,0]
-  answer = df_answer.iloc[0,0]
-  sound_file = BytesIO()
-  tts = gTTS(answer, lang='en')
-  tts.write_to_fp(sound_file)
- 
-  tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English Listening', 'Pronounciation Check'])
-  with tab1:
-    #tab A 를 누르면 표시될 내용
-    st.table(df_quiz)
-    
-  with tab2:
-    #tab B를 누르면 표시될 내용 
-    st.table(df_answer)
 
-  with tab3:
-    #tab C를 누르면 표시될 내용
+  #Remove already used samples
+  remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
+
+  if remaining_smaples.empty:
+    st.write("No more new quizzes available!")
+  else:
+    df_samples = remaining_samples.sample(n=n_quiz, replace=False)
+    st.session_state.used_samples.append(df_samples.index[0])
     
-    st.audio(sound_file)
+    df_quiz = df_samples.loc[:, ['Korean']]
+    df_answer = df_samples.loc[:, ['English']]
+    quiz = df_quiz.iloc[0,0]
+    answer = df_answer.iloc[0,0]
+    
+    sound_file = BytesIO()
+    tts = gTTS(answer, lang='en')
+    tts.write_to_fp(sound_file)
+   
+    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English Listening', 'Pronounciation Check'])
+    with tab1:
+      #tab A 를 누르면 표시될 내용
+      st.table(df_quiz)
+      
+    with tab2:
+      #tab B를 누르면 표시될 내용 
+      st.table(df_answer)
   
-  with tab4:
-    #tab D를 누르면 표시될 내용
-    audio_data = mic_recorder()
-
-    if audio_data is not None:
-      st.write(f"audio_data type: {type(audio_data)}")
-      #st.write(f"audio_data content: {audio_data}")
-      try:
-        audio_bytes=audio_data['bytes']
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_audio_file:
-          temp_audio_file.write(audio_bytes)
-          temp_audio_path = temp_audio_file.name 
-
-        wav_audio_path = temp_audio_path.replace(".mp4", ".wav")
-        (
-          ffmpeg
-          .input(temp_audio_path)
-          .output(wav_audio_path)
-          .run(quiet=True, overwrite_output = True)
-        )
-        #audio = AudioSegment.from_file(temp_audio_path, format="mp4")
-        #audio.export(wav_audio_path, format="wav")
-
-        
-        r = sr.Recognizer()
-        with sr.AudioFile(wav_audio_path) as source:
-          audio_data = r.record(source)
-          try:
-            text = r.recognize_google(audio_data)
-            st.write("Recognized Text: "+ text)
-          except sr.UnknownValueError:
-            st.write("Sorry, I could not understand the audio.")        
-          except sr.RequestError as e:
-            st.write("Could not request results from Google Web Speech API; {0}".format(e))
-        os.remove(temp_audio_path)
-        os.remove(wav_audio_path)
-
-      except Exception as e:
-          st.write(f"An error occurred: {e}")
+    with tab3:
+      #tab C를 누르면 표시될 내용
+      
+      st.audio(sound_file)
+    
+    with tab4:
+      #tab D를 누르면 표시될 내용
+      audio_data = mic_recorder()
+  
+      if audio_data is not None:
+        st.write(f"audio_data type: {type(audio_data)}")
+        #st.write(f"audio_data content: {audio_data}")
+        try:
+          audio_bytes=audio_data['bytes']
+          with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_audio_file:
+            temp_audio_file.write(audio_bytes)
+            temp_audio_path = temp_audio_file.name 
+  
+          wav_audio_path = temp_audio_path.replace(".mp4", ".wav")
+          (
+            ffmpeg
+            .input(temp_audio_path)
+            .output(wav_audio_path)
+            .run(quiet=True, overwrite_output = True)
+          )
+          #audio = AudioSegment.from_file(temp_audio_path, format="mp4")
+          #audio.export(wav_audio_path, format="wav")
+  
+          
+          r = sr.Recognizer()
+          with sr.AudioFile(wav_audio_path) as source:
+            audio_data = r.record(source)
+            try:
+              text = r.recognize_google(audio_data)
+              st.write("Recognized Text: "+ text)
+            except sr.UnknownValueError:
+              st.write("Sorry, I could not understand the audio.")        
+            except sr.RequestError as e:
+              st.write("Could not request results from Google Web Speech API; {0}".format(e))
+          os.remove(temp_audio_path)
+          os.remove(wav_audio_path)
+  
+        except Exception as e:
+            st.write(f"An error occurred: {e}")
 
   
   if st.button("Reload"):
