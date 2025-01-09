@@ -97,6 +97,8 @@ if password_input == "cmcpl":
 
   if remaining_samples.empty:
     st.write("No more new quizzes available!")
+    st.session_state.used_samples = []
+    st.session_state.last_quiz = None
   else:
     df_samples = remaining_samples.sample(n=n_quiz, replace=False)
     st.session_state.used_samples.append(df_samples.index[0])
@@ -167,9 +169,9 @@ if password_input == "cmcpl":
   
   if st.button("Reload"):
     #clear the use dsamples and last quiz to reset the state
-    st.session_state.used_samples = []
-    st.session_state.last_quiz = None
-    st.experimental_rerun()
+    #st.session_state.used_samples = []
+    #st.session_state.last_quiz = None
+    #st.experimental_rerun()
 
 
   st.write("")
