@@ -166,29 +166,11 @@ if password_input == "cmcpl":
 
   
   if st.button("Reload"):
-    st.write("")
+    #clear the use dsamples and last quiz to reset the state
+    st.session_state.used_samples = []
+    st.session_state.last_quiz = None
+    st.experimental_rerun()
 
-  #st.write("")
-  #st.subheader('Korean-English Audio')  # 타이틀명 지정
-  #st.write("모든 문장 듣기")
-  #st.audio('combined_all.m4a')
-  
-  #st.write("직장인을 위한 영어패턴1-25 듣기")
-  #st.audio('combined1.m4a')
-
-  #st.write("미국 직장인이 매일 쓰는 영어 100문장 듣기")
-  #st.audio('combined2.m4a')
-
-  #st.write("원어민이 가장 많이 쓰는 구동사 30개 듣기")
-  #st.audio('combined3.m4a')
-
-  #st.write("일상 영어 회화 패턴 20개 듣기")
-  #st.audio('combined4.m4a')
-
-  #st.write("회사에서 지겹도록 듣게되는 영어 문장 40개 듣기")
-  #st.audio('combined5.m4a')
-  
-  #st.write(df)
 
   st.write("")
   st.write("")
