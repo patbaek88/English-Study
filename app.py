@@ -169,10 +169,7 @@ if password_input == "cmcpl":
   
   if st.button("Reload"):
     st.write("")
-    #clear the use dsamples and last quiz to reset the state
-    #st.session_state.used_samples = []
-    #st.session_state.last_quiz = None
-    #st.experimental_rerun()
+
 
   st.write("")
   st.write("")
