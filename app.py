@@ -95,7 +95,7 @@ if password_input == "cmcpl":
   #Remove already used samples
   remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
 
-  if remaining_smaples.empty:
+  if remaining_samples.empty:
     st.write("No more new quizzes available!")
   else:
     df_samples = remaining_samples.sample(n=n_quiz, replace=False)
