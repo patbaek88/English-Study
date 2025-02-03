@@ -108,9 +108,9 @@ if password_input == "cmcpl":
     quiz = df_quiz.iloc[0,0]
     answer = df_answer.iloc[0,0]
     
-    sound_file = BytesIO()
-    tts = gTTS(answer, lang='en')
-    tts.write_to_fp(sound_file)
+    #sound_file = BytesIO()
+    #tts = gTTS(answer, lang='en')
+    #tts.write_to_fp(sound_file)
    
     tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English Listening', 'Pronounciation Check'])
     with tab1:
