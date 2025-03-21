@@ -34,10 +34,17 @@ if password_input == "cmcpl":
   if st.button("음성 재생"):
       for _, row in df.iterrows():
           for lang, text in [("ko", row["Korean"]), ("en", row["English"])]:
-              tts = gTTS(text=text, lang=lang)  # 한국어/영어 변환
-              tts.save("temp.mp3")  # 임시 파일 저장
-              os.system("start temp.mp3")  # Windows에서 실행
-
+              tts = gTTS(text=text, lang=lang)
+              tts.save("temp.mp3")
+  
+              # 운영체제별 실행 방식 적용
+              if system_name == "Windows":
+                  os.system("start temp.mp3")  # Windows용
+              elif system_name == "Darwin":  # macOS
+                  os.system("afplay temp.mp3")  
+              else:  # Linux
+                  os.system("mpg321 temp.mp3")
+  
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
 
