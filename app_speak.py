@@ -35,21 +35,19 @@ if password_input == "cmcpl":
   # 음성 파일을 저장할 메모리 버퍼 생성
   audio_bytes = io.BytesIO()
   
-  # 버튼 클릭 시 모든 문장을 하나의 오디오 파일로 생성
-  if st.button("음성 재생"):
-      combined_audio = io.BytesIO()
-  
-      for _, row in df.iterrows():
-          # 한국어 문장 변환
-          tts_ko = gTTS(text=row["Korean"], lang="ko")
-          tts_ko.write_to_fp(combined_audio)
-  
-          # 영어 문장 변환
-          tts_en = gTTS(text=row["English"], lang="en")
-          tts_en.write_to_fp(combined_audio)
-  
-      # Streamlit에서 오디오 재생
-      st.audio(combined_audio.getvalue(), format="audio/mp3")
+  combined_audio = io.BytesIO()
+
+  for _, row in df.iterrows():
+      # 한국어 문장 변환
+      tts_ko = gTTS(text=row["Korean"], lang="ko")
+      tts_ko.write_to_fp(combined_audio)
+
+      # 영어 문장 변환
+      tts_en = gTTS(text=row["English"], lang="en")
+      tts_en.write_to_fp(combined_audio)
+
+  # Streamlit에서 오디오 재생
+  st.audio(combined_audio.getvalue(), format="audio/mp3")
   
   
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
