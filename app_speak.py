@@ -30,13 +30,14 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe['Topic']==topic]
 
-
-  # DataFrame을 순회하며 Korean → English 순으로 읽기
-  for _, row in df.iterrows():
-    for lang, text in [("ko", row["Korean"]), ("en", row["English"])]:
-        tts = gTTS(text=text, lang=lang)  # 한국어/영어 변환
-        tts.save("temp.mp3")  # 임시 파일 저장
-        os.system("mpg321 temp.mp3")  # 파일 실행 (Windows는 "start temp.mp3")
+  # 음성 재생 버튼
+  if st.button("음성 재생"):
+      for _, row in df.iterrows():
+          for lang, text in [("ko", row["Korean"]), ("en", row["English"])]:
+              tts = gTTS(text=text, lang=lang)  # 한국어/영어 변환
+              tts.save("temp.mp3")  # 임시 파일 저장
+              os.system("mpg321 temp.mp3")  # Linux/macOS에서 실행 (Windows: "start temp.mp3")
+              # os.system("start temp.mp3")  # Windows에서 실행
 
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
