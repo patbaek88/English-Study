@@ -30,6 +30,9 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe['Topic']==topic]
 
+  # 운영체제 확인
+  system_name = platform.system()
+
   # 음성 재생 버튼
   if st.button("음성 재생"):
       for _, row in df.iterrows():
