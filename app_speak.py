@@ -29,7 +29,7 @@ if password_input == "cmcpl":
 
     
   
-  df = dataframe[dataframe['Topic'].isin(selected_topics)]
+  df = dataframe[dataframe['Topic'].isin(topic)]
 
 
 
