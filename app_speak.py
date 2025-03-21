@@ -32,16 +32,24 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe['Topic']==topic]
 
+  # 음성 파일을 저장할 메모리 버퍼 생성
+  audio_bytes = io.BytesIO()
+  
+  # 버튼 클릭 시 모든 문장을 하나의 오디오 파일로 생성
   if st.button("음성 재생"):
-    for _, row in df.iterrows():
-        for lang, text in [("ko", row["Korean"]), ("en", row["English"])]:
-            tts = gTTS(text=text, lang=lang)
-            tts.save("temp.mp3")
-
-            # 파일을 Base64로 인코딩하여 Streamlit 오디오 플레이어에서 실행
-            with open("temp.mp3", "rb") as f:
-                audio_bytes = f.read()
-                st.audio(audio_bytes, format="audio/mp3")
+      full_text = ""
+      
+      for _, row in df.iterrows():
+          full_text += row["Korean"] + ". "  # 한국어 문장 추가
+          full_text += row["English"] + ". "  # 영어 문장 추가
+  
+      # gTTS로 전체 문장을 음성 변환
+      tts = gTTS(text=full_text, lang="ko")  # 한국어 음성 기본 (영어도 알아서 잘 읽음)
+      tts.write_to_fp(audio_bytes)
+  
+      # Streamlit에서 오디오 재생
+      st.audio(audio_bytes.getvalue(), format="audio/mp3")
+  
   
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
