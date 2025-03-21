@@ -26,11 +26,11 @@ if password_input == "cmcpl":
   topics = dataframe["Topic"].drop_duplicates().tolist()
 
 
-  # Create Radio Buttons
-  topic=st.radio(label = '학습 주제선택', options = topics)
+   # 모든 주제를 기본값으로 선택
+  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=topics)
      
   
-  df = dataframe[dataframe['Topic']==topic]
+  df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
   # 음성 파일을 저장할 메모리 버퍼 생성
   audio_bytes = io.BytesIO()
