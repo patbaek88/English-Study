@@ -22,17 +22,21 @@ if password_input == "cmcpl":
   dataframe = pd.read_csv('review.csv')
 
 
-  # Create Radio Buttons
-  topic=st.radio(label = '학습 주제선택', options = ['모두', '직장인을 위한 영어패턴1-25', '미국 직장인이 매일 쓰는 영어 100문장', '원어민이 가장 많이 쓰는 구동사 30개', '일상 영어 회화 패턴 20개', '회사에서 지겹도록 듣게되는 영어 문장 40개', '비즈니스 이메일 핵심패턴 15개','직장인을 위한 전화 영어 표현 10개','화상회의 시 꼭 필요한 영어표현 12개'])
+  topics = dataframe["Topic"].drop_duplicates().tolist()
 
+
+   # 모든 주제를 기본값으로 선택
+  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=topics)
+     
+  
+  df = dataframe[dataframe["Topic"].isin(selected_topics)]
   st.write("")
+  
   if st.checkbox('반복재생'):
     loop = True   
   else:
     loop = False
     
-  df = dataframe[dataframe['Topic'].isin(selected_topics)]
-
   # 음성 파일을 저장할 메모리 버퍼 생성
   audio_bytes = io.BytesIO()
   
