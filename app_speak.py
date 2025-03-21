@@ -26,12 +26,9 @@ if password_input == "cmcpl":
 
   # Create Radio Buttons
   topic=st.radio(label = '학습 주제선택', options = topics)
-
-    
+     
   
-  df = dataframe[dataframe['Topic'].isin(topic)]
-
-
+  df = dataframe[dataframe['Topic']==topic]
 
 
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
