@@ -32,6 +32,12 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
+
+  if st.checkbox('반복재생'):
+    loop = True   
+  else:
+    loop = False
+    
   # 음성 파일을 저장할 메모리 버퍼 생성
   audio_bytes = io.BytesIO()
   
