@@ -19,7 +19,9 @@ if password_input == "cmcpl":
 
   
   # review 데이터 불러오기
-  dataframe = pd.read_csv('review.csv')
+  dataframe = pd.read_csv('review_speak.csv')
+
+  unique_topics = dataframe["Topic"].drop_duplicates().tolist()
 
 
   # Create Radio Buttons
