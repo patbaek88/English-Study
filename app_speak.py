@@ -12,6 +12,8 @@ import speech_recognition as sr
 import tempfile
 import ffmpeg
 
+import platform
+
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
