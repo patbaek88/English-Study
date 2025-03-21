@@ -32,16 +32,16 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe['Topic']==topic]
 
-   if st.button("음성 재생"):
-      for _, row in df.iterrows():
-          for lang, text in [("ko", row["Korean"]), ("en", row["English"])]:
-              tts = gTTS(text=text, lang=lang)
-              tts.save("temp.mp3")
-  
-              # 파일을 Base64로 인코딩하여 Streamlit 오디오 플레이어에서 실행
-              with open("temp.mp3", "rb") as f:
-                  audio_bytes = f.read()
-                  st.audio(audio_bytes, format="audio/mp3")
+  if st.button("음성 재생"):
+    for _, row in df.iterrows():
+        for lang, text in [("ko", row["Korean"]), ("en", row["English"])]:
+            tts = gTTS(text=text, lang=lang)
+            tts.save("temp.mp3")
+
+            # 파일을 Base64로 인코딩하여 Streamlit 오디오 플레이어에서 실행
+            with open("temp.mp3", "rb") as f:
+                audio_bytes = f.read()
+                st.audio(audio_bytes, format="audio/mp3")
   
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
