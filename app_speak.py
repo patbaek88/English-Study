@@ -36,6 +36,28 @@ if password_input == "cmcpl":
 
   # 영어 읽기 속도 선택 슬라이더 추가 (0.5배 ~ 2배)
   speed_factor = st.slider("영어 읽기 속도 조절", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
+
+  # 샘플 문장 (예제 문장)
+  sample_text = "Hello, this is a sample sentence to check the reading speed."
+  
+  # 샘플 문장 오디오 생성
+  sample_audio = io.BytesIO()
+  tts_sample = gTTS(text=sample_text, lang="en")
+  tts_sample.write_to_fp(sample_audio)
+
+  # pydub을 이용한 속도 조절
+  sample_audio.seek(0)
+  audio_segment = AudioSegment.from_file(sample_audio, format="mp3")
+  new_audio_segment = audio_segment.speedup(playback_speed=speed_factor)
+  
+  # 변환된 오디오를 새로운 버퍼에 저장
+  sample_audio_output = io.BytesIO()
+  new_audio_segment.export(sample_audio_output, format="mp3")
+  sample_audio_output.seek(0)
+  
+  # ✅ 샘플 문장 읽기 속도 확인용 오디오 플레이어 추가
+  st.audio(sample_audio_output.getvalue(), format="audio/mp3")
+  st.write("위의 오디오를 재생하여 선택한 속도로 읽는 속도를 확인하세요.")
      
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
