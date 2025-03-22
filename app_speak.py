@@ -119,19 +119,29 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-  # microphone에서 auido source를 생성합니다
-  r = sr.Recognizer()
-  with sr.Microphone() as source:
-      st.write("Say something!")
-      audio = r.listen(source)
+  # Streamlit 앱 제목
+  st.title("음성 인식기")
   
-  # 구글 웹 음성 API로 인식하기 
-  try:
-      st.write("Google Speech Recognition thinks you said : " + r.recognize_google(audio, language='ko'))
-  except sr.UnknownValueError as e:
-      st.write("Google Speech Recognition could not understand audio".format(e))
-  except sr.RequestError as e:
-      st.write("Could not request results from Google Speech Recognition service; {0}".format(e))
+  # 음성 파일 업로드
+  audio_file = st.file_uploader("음성 파일을 업로드하세요", type=["wav", "mp3"])
+  
+  # 파일이 업로드되면 음성 인식 시작
+  if audio_file is not None:
+      # 음성 인식기 생성
+      recognizer = sr.Recognizer()
+      
+      # 업로드된 파일을 음성으로 인식
+      with sr.AudioFile(audio_file) as source:
+          audio = recognizer.record(source)  # 파일에서 음성을 읽음
+          
+          try:
+              # 구글 음성 인식 API 사용
+              text = recognizer.recognize_google(audio, language='ko-KR')
+              st.write(f"인식된 텍스트: {text}")
+          except sr.UnknownValueError:
+              st.write("음성을 인식할 수 없습니다.")
+          except sr.RequestError as e:
+              st.write(f"음성 인식 서비스 오류: {e}")
     
       
   if st.button("Reload"):
