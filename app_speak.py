@@ -8,6 +8,7 @@ from io import BytesIO
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 
+from pydub import AudioSegment
 from pydub.playback import play
 
 
