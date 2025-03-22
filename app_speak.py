@@ -50,7 +50,7 @@ if password_input == "cmcpl":
         tts_ko.write_to_fp(combined_audio)
   
         # 영어 문장 변환
-        tts_en = gTTS(text=row["English"], lang="en")
+        tts_en = gTTS(text=row["English"], lang="en", tld=accent)
         tts_en.write_to_fp(combined_audio)
   
     # Streamlit에서 오디오 재생
@@ -92,7 +92,7 @@ if password_input == "cmcpl":
     answer = df_answer.iloc[0,0]
     
     sound_file = BytesIO()
-    tts = gTTS(answer, lang='en')
+    tts = gTTS(answer, lang='en', tld=accent)
     tts.write_to_fp(sound_file)
    
     tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English Listening'])
