@@ -42,7 +42,7 @@ if password_input == "cmcpl":
   
   # 샘플 문장 오디오 생성
   sample_audio = io.BytesIO()
-  tts_sample = gTTS(text=sample_text, lang="en")
+  tts_sample = gTTS(text=sample_text, lang="en", tld=accent)
   tts_sample.write_to_fp(sample_audio)
 
   # pydub을 이용한 속도 조절
