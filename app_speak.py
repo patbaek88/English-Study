@@ -34,29 +34,29 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
-
-  # 반복 재생 여부 체크박스 추가
-  repeat_audio = st.checkbox("반복 재생")
+  if st.button("음원 생성"):
+    # 반복 재생 여부 체크박스 추가
+    repeat_audio = st.checkbox("반복 재생")
+      
+     # 음성 파일을 저장할 메모리 버퍼 생성
+    audio_bytes = io.BytesIO()
     
-   # 음성 파일을 저장할 메모리 버퍼 생성
-  audio_bytes = io.BytesIO()
+    combined_audio = io.BytesIO()
   
-  combined_audio = io.BytesIO()
-
-  for _, row in df.iterrows():
-      # 한국어 문장 변환
-      tts_ko = gTTS(text=row["Korean"], lang="ko")
-      tts_ko.write_to_fp(combined_audio)
-
-      # 영어 문장 변환
-      tts_en = gTTS(text=row["English"], lang="en")
-      tts_en.write_to_fp(combined_audio)
-
-  # Streamlit에서 오디오 재생
-  st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
-
-  # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
-  st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
+    for _, row in df.iterrows():
+        # 한국어 문장 변환
+        tts_ko = gTTS(text=row["Korean"], lang="ko")
+        tts_ko.write_to_fp(combined_audio)
+  
+        # 영어 문장 변환
+        tts_en = gTTS(text=row["English"], lang="en")
+        tts_en.write_to_fp(combined_audio)
+  
+    # Streamlit에서 오디오 재생
+    st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
+  
+    # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
+    st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
   
   
   with st.expander('문장 보기'):
