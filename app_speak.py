@@ -34,7 +34,7 @@ if password_input == "cmcpl":
   accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
   accent = accent_code.iloc[0]
 
-  speed_factor = 1.2
+  speed_factor = st.slider("영어 읽기 속도 조절", min_value=0.7, max_value=2.0, value=1.1, step=0.1)
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
