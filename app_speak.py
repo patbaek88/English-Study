@@ -26,14 +26,15 @@ if password_input == "cmcpl":
   topics = dataframe["Topic"].drop_duplicates().tolist()
 
 
+  st.write("")
+  st.subheader('학습')
    # 모든 주제를 기본값으로 선택
   selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=topics)
      
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
-  st.write("")
-  st.subheader('학습')
+
   # 반복 재생 여부 체크박스 추가
   repeat_audio = st.checkbox("반복 재생")
     
@@ -55,10 +56,10 @@ if password_input == "cmcpl":
   st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
 
   # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
-  st.download_button(label="📥 음성 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
+  st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
   
   
-  with st.expander('선택한 학습 주제의 모든 문장 보기'):
+  with st.expander('문장 보기'):
       st.write(df)
 
   st.write("")
