@@ -51,7 +51,7 @@ if password_input == "cmcpl":
       tts_en.write_to_fp(combined_audio)
 
   # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
-    st.download_button(label="📥 음성 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
+  st.download_button(label="📥 음성 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
 
   # Streamlit에서 오디오 재생
   st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
