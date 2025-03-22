@@ -6,3 +6,4 @@ streamlit-mic-recorder
 SpeechRecognition
 ffmpeg-python
 pyttsx3
+pyaudio
