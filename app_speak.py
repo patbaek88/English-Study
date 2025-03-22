@@ -8,6 +8,8 @@ from io import BytesIO
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
 
+from pydub.playback import play
+
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -30,6 +32,9 @@ if password_input == "cmcpl":
   accent_select = st.selectbox('영어 억양 선택', accent_df['Accent'])
   accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
   accent = accent_code.iloc[0]
+
+  # 영어 읽기 속도 선택 슬라이더 추가 (0.5배 ~ 2배)
+  speed_factor = st.slider("영어 읽기 속도 조절", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
      
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
@@ -52,8 +57,25 @@ if password_input == "cmcpl":
         tts_ko.write_to_fp(combined_audio)
   
         # 영어 문장 변환
+        #tts_en = gTTS(text=row["English"], lang="en", tld=accent)
+        #tts_en.write_to_fp(combined_audio)
+
+        # 영어 문장 변환
         tts_en = gTTS(text=row["English"], lang="en", tld=accent)
-        tts_en.write_to_fp(combined_audio)
+        temp_audio = io.BytesIO()
+        tts_en.write_to_fp(temp_audio)
+        
+        # pydub을 이용한 속도 조절
+        temp_audio.seek(0)
+        audio_segment = AudioSegment.from_file(temp_audio, format="mp3")
+        new_audio_segment = audio_segment.speedup(playback_speed=speed_factor)
+        
+        # 변환된 오디오를 새로운 버퍼에 저장
+        temp_audio_output = io.BytesIO()
+        new_audio_segment.export(temp_audio_output, format="mp3")
+        temp_audio_output.seek(0)
+        
+        combined_audio.write(temp_audio_output.getvalue())
   
     # Streamlit에서 오디오 재생
     st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
