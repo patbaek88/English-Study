@@ -117,22 +117,29 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-    # 음성 인식기 생성
+  # 음성 인식기 생성
   recognizer = sr.Recognizer()
   
-  # 마이크를 통해 음성 입력 받기
-  with sr.Microphone() as source:
-      print("음성을 입력해주세요...")
-      recognizer.adjust_for_ambient_noise(source)  # 주변 소음에 맞게 조정
-      audio = recognizer.listen(source)  # 음성을 들음
+  # Streamlit 앱 제목
+  st.title("음성 인식기")
   
-  # 음성을 텍스트로 변환
-  try:
-      print("인식된 텍스트:", recognizer.recognize_google(audio, language='ko-KR'))  # 구글 음성 인식 API 사용
-  except sr.UnknownValueError:
-      print("음성을 인식할 수 없습니다.")
-  except sr.RequestError as e:
-      print(f"음성 인식 서비스 오류: {e}")
+  # 마이크로폰에서 음성 입력받기
+  st.write("음성을 입력해주세요...")
+  
+  # 버튼 클릭 시 음성 인식 시작
+  if st.button('음성 인식 시작'):
+      with sr.Microphone() as source:
+          recognizer.adjust_for_ambient_noise(source)  # 주변 소음에 맞게 조정
+          audio = recognizer.listen(source)  # 음성을 들음
+          
+          try:
+              # 구글 음성 인식 API 사용
+              text = recognizer.recognize_google(audio, language='ko-KR')
+              st.write(f"인식된 텍스트: {text}")
+          except sr.UnknownValueError:
+              st.write("음성을 인식할 수 없습니다.")
+          except sr.RequestError as e:
+              st.write(f"음성 인식 서비스 오류: {e}")
     
       
   if st.button("Reload"):
