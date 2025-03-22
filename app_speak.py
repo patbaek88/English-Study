@@ -11,7 +11,7 @@ import speech_recognition as sr
 from pydub import AudioSegment
 from pydub.playback import play
 
-import pyaudio
+import pyttsx3
 
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
@@ -119,29 +119,21 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-  # 음성 인식기 생성
-  recognizer = sr.Recognizer()
-  
-  # Streamlit 앱 제목
-  st.title("음성 인식기")
-  
-  # 마이크로폰에서 음성 입력받기
-  st.write("음성을 입력해주세요...")
-  
-  # 버튼 클릭 시 음성 인식 시작
-  if st.button('음성 인식 시작'):
-      with sr.Microphone() as source:
-          recognizer.adjust_for_ambient_noise(source)  # 주변 소음에 맞게 조정
-          audio = recognizer.listen(source)  # 음성을 들음
-          
-          try:
-              # 구글 음성 인식 API 사용
-              text = recognizer.recognize_google(audio, language='ko-KR')
-              st.write(f"인식된 텍스트: {text}")
-          except sr.UnknownValueError:
-              st.write("음성을 인식할 수 없습니다.")
-          except sr.RequestError as e:
-              st.write(f"음성 인식 서비스 오류: {e}")
+  r = sr.Recognizer()
+
+  with sr.Microphone() as source:
+      audio = r.listen(source)
+
+  # 구글 웹 음성 API로 인식하기 
+  try:
+      print("Google Speech Recognition thinks you said : " + r.recognize_google(audio, language='ko'))
+      return r.recognize_google(audio, language='ko')
+  except sr.UnknownValueError as e:
+      print("Google Speech Recognition could not understand audio".format(e))
+      return None
+  except sr.RequestError as e:
+      print("Could not request results from Google Speech Recognition service; {0}".format(e))
+      return None
     
       
   if st.button("Reload"):
