@@ -34,8 +34,8 @@ if password_input == "cmcpl":
   accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
   accent = accent_code.iloc[0]
 
-  # 영어 읽기 속도 선택 슬라이더 추가 (0.5배 ~ 2배)
-  speed_factor = st.slider("영어 읽기 속도 조절", min_value=0.5, max_value=2.0, value=1.0, step=0.1)
+  # 영어 읽기 속도 선택 슬라이더 추가 (1배 ~ 2배)
+  speed_factor = st.slider("영어 읽기 속도 조절", min_value=1, max_value=2.0, value=1.0, step=0.1)
 
   # 샘플 문장 (예제 문장)
   sample_text = "Hello, this is a sample sentence to check the reading speed."
