@@ -59,7 +59,7 @@ if password_input == "cmcpl":
     st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
   
   
-  with st.expander('문장 보기'):
+  with st.expander('표현 보기'):
       st.write(df)
 
   st.write("")
