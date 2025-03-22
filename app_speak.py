@@ -32,7 +32,8 @@ if password_input == "cmcpl":
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
-
+  st.write("")
+  st.subheader('학습')
   # 반복 재생 여부 체크박스 추가
   repeat_audio = st.checkbox("반복 재생")
     
@@ -50,18 +51,18 @@ if password_input == "cmcpl":
       tts_en = gTTS(text=row["English"], lang="en")
       tts_en.write_to_fp(combined_audio)
 
-  # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
-  st.download_button(label="📥 음성 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
-
   # Streamlit에서 오디오 재생
   st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
+
+  # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
+  st.download_button(label="📥 음성 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
   
   
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
       st.write(df)
 
   st.write("")
-  st.subheader('English Quiz')  # 타이틀명 지정
+  st.subheader('Quiz')  # 타이틀명 지정
 
   if 'used_samples' not in st.session_state:
     st.session_state.used_samples =[]
