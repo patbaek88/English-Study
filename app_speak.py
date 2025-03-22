@@ -3,8 +3,6 @@ import pandas as pd
 from gtts import gTTS
 import io
 from io import BytesIO
-import os
-from pydub import AudioSegment
 
 
 from streamlit_mic_recorder import mic_recorder
