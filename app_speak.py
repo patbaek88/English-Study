@@ -116,6 +116,23 @@ if password_input == "cmcpl":
       autoplay = st.checkbox("자동재생")
       
       st.audio(sound_file, autoplay=autoplay)
+
+    # 음성 인식기 생성
+  recognizer = sr.Recognizer()
+  
+  # 마이크를 통해 음성 입력 받기
+  with sr.Microphone() as source:
+      print("음성을 입력해주세요...")
+      recognizer.adjust_for_ambient_noise(source)  # 주변 소음에 맞게 조정
+      audio = recognizer.listen(source)  # 음성을 들음
+  
+  # 음성을 텍스트로 변환
+  try:
+      print("인식된 텍스트:", recognizer.recognize_google(audio, language='ko-KR'))  # 구글 음성 인식 API 사용
+  except sr.UnknownValueError:
+      print("음성을 인식할 수 없습니다.")
+  except sr.RequestError as e:
+      print(f"음성 인식 서비스 오류: {e}")
     
       
   if st.button("Reload"):
