@@ -34,6 +34,8 @@ if password_input == "cmcpl":
   accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
   accent = accent_code.iloc[0]
 
+  speed = st.slider("영어 읽기 속도 조절(+: 느리게, -: 빠르게)", min_value=-5, max_value=5, value=0, step=0.5)
+
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
   if st.button("음원 생성"):
@@ -54,7 +56,7 @@ if password_input == "cmcpl":
         tts_ko.write_to_fp(combined_audio)
   
         # 영어 문장 변환
-        tts_en = gTTS(text=row["English"], lang="en", tld=accent)
+        tts_en = gTTS(text=row["English"], lang="en", tld=accent, speed = speed)
         tts_en.write_to_fp(combined_audio)
 
   
@@ -97,7 +99,7 @@ if password_input == "cmcpl":
     answer = df_answer.iloc[0,0]
     
     sound_file = BytesIO()
-    tts = gTTS(answer, lang='en', tld=accent)
+    tts = gTTS(answer, lang='en', tld=accent, speed = speed)
     tts.write_to_fp(sound_file)
    
     tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English Listening'])
