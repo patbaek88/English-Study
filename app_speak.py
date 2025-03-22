@@ -55,6 +55,15 @@ if password_input == "cmcpl":
   # Streamlit에서 오디오 재생
   st.audio(combined_audio.getvalue(), format="audio/mp3", loop=repeat_audio)
 
+  # MP3 → WAV 변환
+  audio = AudioSegment.from_file(combined_audio, format="mp3")
+  combined_audio_wav = io.BytesIO()
+  audio.export(combined_audio_wav, format="wav")
+  combined_audio_wav.seek(0)  # 파일 포인터를 처음으로 이동
+  
+  # Streamlit에서 WAV 파일 재생
+  st.audio(combined_audio_wav.getvalue(), format="audio/wav", loop=repeat_audio)
+
   # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
   st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
   
