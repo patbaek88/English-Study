@@ -5,4 +5,4 @@ pydub
 streamlit-mic-recorder
 SpeechRecognition
 ffmpeg-python
-pyaudio
+pyttsx3
