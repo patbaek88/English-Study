@@ -24,17 +24,19 @@ if password_input == "cmcpl":
   st.subheader('학습')
    # 모든 주제를 기본값으로 선택
   selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=topics)
+
+  accent = 'com'
+  accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Africa'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
+  accent_select = st.selectbox('영어 억양 선택', accent_df['Accent'])
+  accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
+  accent = accent_code.iloc[0]
      
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
   if st.button("음원 생성"):
 
-    accent = 'com'
-    accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Africa'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
-    accent_select = st.selectbox('영어 억양 선택', accent_df['Accent'])
-    accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
-    accent = accent_code.iloc[0]
+    
     
     # 반복 재생 여부 체크박스 추가
     repeat_audio = st.checkbox("반복 재생")
