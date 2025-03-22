@@ -43,7 +43,7 @@ if password_input == "cmcpl":
     
     
     # 반복 재생 여부 체크박스 추가
-    repeat_audio = st.checkbox("반복 재생")
+    #repeat_audio = st.checkbox("반복 재생")
       
      # 음성 파일을 저장할 메모리 버퍼 생성
     audio_bytes = io.BytesIO()
