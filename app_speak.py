@@ -34,7 +34,7 @@ if password_input == "cmcpl":
   accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
   accent = accent_code.iloc[0]
 
-  slow = st.checkbot("영어 읽기 느리게")
+  slow = st.checkbox("영어 읽기 느리게")
 
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
