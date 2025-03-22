@@ -99,8 +99,9 @@ if password_input == "cmcpl":
   
     with tab3:
       #tab C를 누르면 표시될 내용
+      autoplay = st.checkbox("자동재생")
       
-      st.audio(sound_file, autoplay=True)
+      st.audio(sound_file, autoplay=autoplay)
     
       
   if st.button("Reload"):
