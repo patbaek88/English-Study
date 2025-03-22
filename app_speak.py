@@ -11,6 +11,8 @@ import speech_recognition as sr
 from pydub import AudioSegment
 from pydub.playback import play
 
+import pyaudio
+
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
