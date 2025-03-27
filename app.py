@@ -3,14 +3,15 @@ import pandas as pd
 from gtts import gTTS
 import io
 from io import BytesIO
-import os
-from pydub import AudioSegment
 
 
 from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
-import tempfile
-import ffmpeg
+
+from pydub import AudioSegment
+from pydub.playback import play
+
+import pyttsx3
 
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
@@ -19,45 +20,60 @@ if password_input == "cmcpl":
 
   
   # review 데이터 불러오기
-  dataframe = pd.read_csv('review.csv')
-
+  dataframe = pd.read_csv('review.csv', encoding="euc-kr")
 
   topics = dataframe["Topic"].drop_duplicates().tolist()
 
 
-   # 모든 주제를 기본값으로 선택
-  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default = None)
-     
-  
-  df = dataframe[dataframe["Topic"].isin(selected_topics)]
   st.write("")
-  
-  # 반복 재생 여부 체크박스 추가
-  #repeat_audio = st.checkbox("반복 재생")
+  st.subheader('학습')
+   # 모든 주제를 기본값으로 선택
+  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=topics)
+
+  accent = 'com'
+  accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Africa'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
+  accent_select = st.selectbox('영어 억양 선택', accent_df['Accent'])
+  accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
+  accent = accent_code.iloc[0]
+
+  slow = st.checkbox("영어 읽기 느리게")
+
+  df = dataframe[dataframe["Topic"].isin(selected_topics)]
+
+  if st.button("음원 생성"):
+
     
-  # 음성 파일을 저장할 메모리 버퍼 생성
-  audio_bytes = io.BytesIO()
+    
+    # 반복 재생 여부 체크박스 추가
+    #repeat_audio = st.checkbox("반복 재생")
+      
+     # 음성 파일을 저장할 메모리 버퍼 생성
+    audio_bytes = io.BytesIO()
+    
+    combined_audio = io.BytesIO()
   
-  combined_audio = io.BytesIO()
+    for _, row in df.iterrows():
+        # 한국어 문장 변환
+        tts_ko = gTTS(text=row["Korean"], lang="ko")
+        tts_ko.write_to_fp(combined_audio)
+  
+        # 영어 문장 변환
+        tts_en = gTTS(text=row["English"], lang="en", tld=accent, slow=slow)
+        tts_en.write_to_fp(combined_audio)
 
-  for _, row in df.iterrows():
-      # 한국어 문장 변환
-      tts_ko = gTTS(text=row["Korean"], lang="ko")
-      tts_ko.write_to_fp(combined_audio)
-
-      # 영어 문장 변환
-      tts_en = gTTS(text=row["English"], lang="en")
-      tts_en.write_to_fp(combined_audio)
-
-  # Streamlit에서 오디오 재생
-  st.audio(combined_audio.getvalue(), format="audio/mp3")
-
-  #st.write("")
-  with st.expander('선택한 학습 주제의 모든 문장 보기'):
+  
+    # Streamlit에서 오디오 재생
+    st.audio(combined_audio.getvalue(), format="audio/mp3")
+  
+    # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
+    st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
+  
+  
+  with st.expander('표현 보기'):
       st.write(df)
 
   st.write("")
-  st.subheader('English Quiz')  # 타이틀명 지정
+  st.subheader('Quiz')  # 타이틀명 지정
 
   if 'used_samples' not in st.session_state:
     st.session_state.used_samples =[]
@@ -85,10 +101,10 @@ if password_input == "cmcpl":
     answer = df_answer.iloc[0,0]
     
     sound_file = BytesIO()
-    tts = gTTS(answer, lang='en')
+    tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'English Listening', 'Pronounciation Check'])
+    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English Listening'])
     with tab1:
       #tab A 를 누르면 표시될 내용
       st.table(df_quiz)
@@ -99,59 +115,19 @@ if password_input == "cmcpl":
   
     with tab3:
       #tab C를 누르면 표시될 내용
+      autoplay = st.checkbox("자동재생")
       
-      st.audio(sound_file)
-    
-    with tab4:
-      #tab D를 누르면 표시될 내용
-      audio_data = mic_recorder()
-  
-      if audio_data is not None:
-        st.write(f"audio_data type: {type(audio_data)}")
-        #st.write(f"audio_data content: {audio_data}")
-        try:
-          audio_bytes=audio_data['bytes']
-          with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_audio_file:
-            temp_audio_file.write(audio_bytes)
-            temp_audio_path = temp_audio_file.name 
-  
-          wav_audio_path = temp_audio_path.replace(".mp4", ".wav")
-          (
-            ffmpeg
-            .input(temp_audio_path)
-            .output(wav_audio_path)
-            .run(quiet=True, overwrite_output = True)
-          )
-          #audio = AudioSegment.from_file(temp_audio_path, format="mp4")
-          #audio.export(wav_audio_path, format="wav")
-  
-          
-          r = sr.Recognizer()
-          with sr.AudioFile(wav_audio_path) as source:
-            audio_data = r.record(source)
-            try:
-              text = r.recognize_google(audio_data)
-              st.write("Recognized Text: "+ text)
-            except sr.UnknownValueError:
-              st.write("Sorry, I could not understand the audio.")        
-            except sr.RequestError as e:
-              st.write("Could not request results from Google Web Speech API; {0}".format(e))
-          os.remove(temp_audio_path)
-          os.remove(wav_audio_path)
-  
-        except Exception as e:
-            st.write(f"An error occurred: {e}")
+      st.audio(sound_file, autoplay=autoplay)
 
-  
+   
+      
   if st.button("Reload"):
     st.write("")
 
 
-  st.write("")
-  st.write("")
-  link1 = '[Conference Call Scenario Link](http://english-scenario.streamlit.app)'
-  st.markdown(link1, unsafe_allow_html=True)
 
+  
 else:
   st.write("")
+  
   
