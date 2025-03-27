@@ -1,9 +1,9 @@
 streamlit
 pandas
 gTTS
-pydub
+#pydub
 streamlit-mic-recorder
-SpeechRecognition
-ffmpeg-python
-pyttsx3
-pyaudio
+#SpeechRecognition
+#ffmpeg-python
+#pyttsx3
+#pyaudio
