@@ -97,7 +97,7 @@ if password_input == "cmcpl":
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English Listening'])
+    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'l])
     with tab1:
       #tab A 를 누르면 표시될 내용
       st.table(df_quiz)
@@ -112,7 +112,10 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-      audio_data = st.audio_input("Record a voice message")
+
+    with tab4:
+      #tab C를 누르면 표시될 내용
+      audio_data = st.audio_input("Record English sentences")
 
       if audio_data:
         audio_bytes2 = io.BytesIO(audio_data.read())
@@ -123,12 +126,11 @@ if password_input == "cmcpl":
 
         recognizer = sr.Recognizer()
         with sr.AudioFile(audio_bytes2) as source:
-          st.write("Processing...")
           audio = recognizer.record(source)
 
         try:
           text = recognizer.recognize_google(audio, language = "en")
-          st.write(f"인식된 텍스트: {text}")
+          st.write(f"{text}")
         except sr.UnknownValueError:
           st.write("음성을 인식할 수 없습니다.")
         except sr.RequestError as e:
