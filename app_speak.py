@@ -117,11 +117,12 @@ if password_input == "cmcpl":
       #tab 4 를 누르면 표시될 내용
       st.table(df_quiz)
 
-      st.session_state.audio_data1 = st.audio_input("Record English sentences")
-
       if "audio_data1" not in st.session_state:
         st.session_state.audio_data1 = None
-      
+
+      st.session_state.audio_data1 = st.audio_input("Record English sentences")
+
+     
       if st.session_state.audio_data1 is not None:
         audio_bytes1 = io.BytesIO(st.session_state.audio_data1.read())
         if st.session_state.audio_data1.type == "audio/mpeg":
