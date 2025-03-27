@@ -111,12 +111,12 @@ if password_input == "cmcpl":
           audio_bytes1 = io.BytesIO()
           audio1.export(audio_bytes1, format ="wav")
 
-        recognizer = sr.Recognizer()
+        recognizer1 = sr.Recognizer()
         with sr.AudioFile(audio_bytes1) as source:
-          audio1 = recognizer.record(source)
+          audio1 = recognizer1.record(source)
 
         try:
-          text1 = recognizer.recognize_google(audio1, language = "en")
+          text1 = recognizer1.recognize_google(audio1, language = "en")
           st.write(f"{text1}")
           st.table(df_answer)
         except sr.UnknownValueError:
@@ -137,12 +137,12 @@ if password_input == "cmcpl":
           audio_bytes2 = io.BytesIO()
           audio2.export(audio_bytes2, format ="wav")
 
-        recognizer = sr.Recognizer()
+        recognizer2 = sr.Recognizer()
         with sr.AudioFile(audio_bytes2) as source:
-          audio2 = recognizer.record(source)
+          audio2 = recognizer2.record(source)
 
         try:
-          text2 = recognizer.recognize_google(audio2, language = "en")
+          text2 = recognizer2.recognize_google(audio2, language = "en")
           st.write(f"{text2}")
         except sr.UnknownValueError:
           st.write("음성을 인식할 수 없습니다.")
