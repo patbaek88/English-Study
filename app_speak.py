@@ -97,14 +97,32 @@ if password_input == "cmcpl":
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'Listening'])
+    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
+    
     with tab1:
-      #tab A 를 누르면 표시될 내용
+      #tab 1 를 누르면 표시될 내용
+      st.table(df_quiz)
+    
+    with tab2:
+      #tab 2를 누르면 표시될 내용 
+      st.table(df_answer)
+  
+    with tab3:
+      #tab 3를 누르면 표시될 내용
+      autoplay = st.checkbox("자동재생")
+      
+      st.audio(sound_file, autoplay=autoplay)
+
+    with tab4:
+      #tab 4 를 누르면 표시될 내용
       st.table(df_quiz)
 
-      audio_data1 = st.audio_input("Record English sentences")
+      if "audio_data1" not in st.session_state:
+        st.session_state.audio_data1 = None
 
-      if audio_data1:
+      st.session_state.audio_data1 = st.audio_input("Record English sentences")
+
+      if st.session_state.audio_data1 is not None:
         audio_bytes1 = io.BytesIO(audio_data1.read())
         if audio_data1.type == "audio/mpeg":
           audio1 = AudioSegment.from_mp3(audio_bytes1)
@@ -123,23 +141,10 @@ if password_input == "cmcpl":
           st.write("음성을 인식할 수 없습니다.")
         except sr.RequestError as e:
           st.write(f"음성 인식 서비스 오류: {e}")
-      
-    with tab2:
-      #tab B를 누르면 표시될 내용 
-      st.table(df_answer)
-
-     
-  
-    with tab3:
-      #tab C를 누르면 표시될 내용
-      autoplay = st.checkbox("자동재생")
-      
-      st.audio(sound_file, autoplay=autoplay)
-          
-
    
       
   if st.button("Reload"):
+    st.session_state.audio_data1 = None
     st.write("")
 
 
