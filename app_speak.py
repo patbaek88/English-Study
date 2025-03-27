@@ -117,8 +117,8 @@ if password_input == "cmcpl":
       #tab 4 를 누르면 표시될 내용
       st.table(df_quiz)
 
-      if "audio_data1" not in st.session_state:
-        st.session_state.audio_data1 = None
+      #if "audio_data1" not in st.session_state:
+      #  st.session_state.audio_data1 = None
 
       st.session_state.audio_data1 = st.audio_input("Record English sentences")
 
@@ -145,7 +145,7 @@ if password_input == "cmcpl":
    
       
   if st.button("Reload"):
-    #st.session_state.audio_data1 = None
+    st.session_state.audio_data1 = None
     st.write("")
 
 
