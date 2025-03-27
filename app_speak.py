@@ -4,10 +4,6 @@ from gtts import gTTS
 import io
 from io import BytesIO
 
-#from streamlit_mic_recorder import mic_recorder
-#import speech_recognition as sr
-#from pydub import AudioSegment
-
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
