@@ -127,7 +127,7 @@ if password_input == "cmcpl":
         st.session_state.audio_data1 = st.audio_input("Record English sentences")
         if st.session_state.audio_data1:
           st.session_state.recording_done = True
-          st.experimental_rerun()
+          #st.experimental_rerun()
 
 
       #st.session_state.audio_data1 = st.audio_input("Record English sentences")
