@@ -116,7 +116,7 @@ if password_input == "cmcpl":
 
       if audio_data:
         audio_bytes2 = io.BytesIO(audio_data.read())
-        if audio_Data.type == "audio/mpeg":
+        if audio_data.type == "audio/mpeg":
           audio = AudioSegment.from_mp3(audio_bytes)
           audio_bytes2 = io.BytesIO()
           audio.export(audio_bytes, format ="wav")
