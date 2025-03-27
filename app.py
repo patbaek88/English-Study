@@ -33,7 +33,7 @@ if password_input == "cmcpl":
   st.write("")
   
   # 반복 재생 여부 체크박스 추가
-  repeat_audio = st.checkbox("반복 재생")
+  #repeat_audio = st.checkbox("반복 재생")
     
   # 음성 파일을 저장할 메모리 버퍼 생성
   audio_bytes = io.BytesIO()
@@ -50,7 +50,7 @@ if password_input == "cmcpl":
       tts_en.write_to_fp(combined_audio)
 
   # Streamlit에서 오디오 재생
-  st.audio(combined_audio.getvalue(), format="audio/mp3", loop = repeat_audio)
+  st.audio(combined_audio.getvalue(), format="audio/mp3")
 
   #st.write("")
   with st.expander('선택한 학습 주제의 모든 문장 보기'):
