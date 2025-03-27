@@ -123,6 +123,11 @@ if password_input == "cmcpl":
       
   if st.button("Reload"):
     st.write("")
+  
+  st.write("")
+  st.write("")
+  link1 = '[Link to "Speak Review"](http://review-speak.streamlit.app)'
+  st.markdown(link1, unsafe_allow_html=True)
 
 
 
