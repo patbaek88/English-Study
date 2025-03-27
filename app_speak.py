@@ -97,44 +97,63 @@ if password_input == "cmcpl":
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
+    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening'])
     with tab1:
       #tab A 를 누르면 표시될 내용
       st.table(df_quiz)
+
+      audio_data1 = st.audio_input("Record English sentences")
+
+      if audio_data1:
+        audio_bytes1 = io.BytesIO(audio_data1.read())
+        if audio_data1.type == "audio/mpeg":
+          audio1 = AudioSegment.from_mp3(audio_bytes1)
+          audio_bytes1 = io.BytesIO()
+          audio1.export(audio_bytes1, format ="wav")
+
+        recognizer = sr.Recognizer()
+        with sr.AudioFile(audio_bytes1) as source:
+          audio1 = recognizer.record(source)
+
+        try:
+          text1 = recognizer.recognize_google(audio1, language = "en")
+          st.write(f"{text1}")
+          st.table(df_answer)
+        except sr.UnknownValueError:
+          st.write("음성을 인식할 수 없습니다.")
+        except sr.RequestError as e:
+          st.write(f"음성 인식 서비스 오류: {e}")
       
     with tab2:
       #tab B를 누르면 표시될 내용 
       st.table(df_answer)
+
+      audio_data2 = st.audio_input("Record English sentences")
+
+      if audio_data2:
+        audio_bytes2 = io.BytesIO(audio_data2.read())
+        if audio_data2.type == "audio/mpeg":
+          audio2 = AudioSegment.from_mp3(audio_bytes2)
+          audio_bytes2 = io.BytesIO()
+          audio2.export(audio_bytes2, format ="wav")
+
+        recognizer = sr.Recognizer()
+        with sr.AudioFile(audio_bytes2) as source:
+          audio2 = recognizer.record(source)
+
+        try:
+          text2 = recognizer.recognize_google(audio2, language = "en")
+          st.write(f"{text2}")
+        except sr.UnknownValueError:
+          st.write("음성을 인식할 수 없습니다.")
+        except sr.RequestError as e:
+          st.write(f"음성 인식 서비스 오류: {e}")
   
     with tab3:
       #tab C를 누르면 표시될 내용
       autoplay = st.checkbox("자동재생")
       
       st.audio(sound_file, autoplay=autoplay)
-
-
-    with tab4:
-      #tab C를 누르면 표시될 내용
-      audio_data = st.audio_input("Record English sentences")
-
-      if audio_data:
-        audio_bytes2 = io.BytesIO(audio_data.read())
-        if audio_data.type == "audio/mpeg":
-          audio = AudioSegment.from_mp3(audio_bytes)
-          audio_bytes2 = io.BytesIO()
-          audio.export(audio_bytes, format ="wav")
-
-        recognizer = sr.Recognizer()
-        with sr.AudioFile(audio_bytes2) as source:
-          audio = recognizer.record(source)
-
-        try:
-          text = recognizer.recognize_google(audio, language = "en")
-          st.write(f"{text}")
-        except sr.UnknownValueError:
-          st.write("음성을 인식할 수 없습니다.")
-        except sr.RequestError as e:
-          st.write(f"음성 인식 서비스 오류: {e}")
           
 
    
