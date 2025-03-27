@@ -3,6 +3,8 @@ import pandas as pd
 from gtts import gTTS
 import io
 from io import BytesIO
+import speech_recognition as sr
+from pydub import AudioSegment
 
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
@@ -110,10 +112,28 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-      audio_value = st.audio_input("Record a voice message")
+      audio_data = st.audio_input("Record a voice message")
 
-      if audio_value:
-          st.audio(audio_value)
+      if audio_data:
+        audio_bytes2 = io.BytesIO(audio_data.read())
+        if audio_Data.type == "audio/mpeg":
+          audio = AudioSegment.from_mp3(audio_bytes)
+          audio_bytes2 = io.BytesIO()
+          audio.export(audio_bytes, format ="wav")
+
+        recognizer = sr.Recognizer()
+        with sr.AudioFile(audio_bytes2) as source:
+          st.write("Processing...")
+          audio = recognizer.record(source)
+
+        try:
+          text = recognizer.recognize_google(audio, language = "en")
+          st.write(f"인식된 텍스트: {text}")
+        except sr.UnknownValueError:
+          st.write("음성을 인식할 수 없습니다.")
+        except sr.RequestError as e:
+          st.write(f"음성 인식 서비스 오류: {e}")
+          
 
    
       
