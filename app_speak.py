@@ -123,7 +123,7 @@ if password_input == "cmcpl":
       if "recoding_done" not in st.session_state:
         st.session_state.recording_done = False
 
-      if not st.session_state.recoring_done: 
+      if not st.session_state.recording_done: 
         st.session_state.audio_data1 = st.audio_input("Record English sentences")
         if st.session_state.audio_data1:
           st.session_state.recording_done = True
