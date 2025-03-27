@@ -128,26 +128,7 @@ if password_input == "cmcpl":
       #tab B를 누르면 표시될 내용 
       st.table(df_answer)
 
-      audio_data2 = st.audio_input("Record English sentences")
-
-      if audio_data2:
-        audio_bytes2 = io.BytesIO(audio_data2.read())
-        if audio_data2.type == "audio/mpeg":
-          audio2 = AudioSegment.from_mp3(audio_bytes2)
-          audio_bytes2 = io.BytesIO()
-          audio2.export(audio_bytes2, format ="wav")
-
-        recognizer2 = sr.Recognizer()
-        with sr.AudioFile(audio_bytes2) as source:
-          audio2 = recognizer2.record(source)
-
-        try:
-          text2 = recognizer2.recognize_google(audio2, language = "en")
-          st.write(f"{text2}")
-        except sr.UnknownValueError:
-          st.write("음성을 인식할 수 없습니다.")
-        except sr.RequestError as e:
-          st.write(f"음성 인식 서비스 오류: {e}")
+     
   
     with tab3:
       #tab C를 누르면 표시될 내용
