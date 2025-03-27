@@ -110,6 +110,11 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
+      audio_value = st.audio_input("Record a voice message")
+
+      if audio_value:
+          st.audio(audio_value)
+
    
       
   if st.button("Reload"):
