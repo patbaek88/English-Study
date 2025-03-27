@@ -145,7 +145,7 @@ if password_input == "cmcpl":
    
       
   if st.button("Reload"):
-    st.session_state.audio_data1 = None
+    #st.session_state.audio_data1 = None
     st.write("")
 
 
