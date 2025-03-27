@@ -26,7 +26,7 @@ if password_input == "cmcpl":
 
 
    # 모든 주제를 기본값으로 선택
-  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, defualt = None)
+  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default = None)
      
   
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
