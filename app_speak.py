@@ -92,6 +92,7 @@ if password_input == "cmcpl":
           
           st.session_state.last_quiz = df_samples.loc[:, ['Korean']].iloc[0, 0]
           st.session_state.last_answer = df_samples.loc[:, ['English']].iloc[0, 0]
+
   
   quiz = st.session_state.last_quiz
   answer = st.session_state.last_answer
@@ -104,11 +105,11 @@ if password_input == "cmcpl":
   
   with tab1:
     #tab 1 를 누르면 표시될 내용
-    st.table(df_quiz)
+    st.table(quiz)
   
   with tab2:
     #tab 2를 누르면 표시될 내용 
-    st.table(df_answer)
+    st.table(answer)
 
   with tab3:
     #tab 3를 누르면 표시될 내용
@@ -118,7 +119,7 @@ if password_input == "cmcpl":
 
   with tab4:
       # 기존 문제 표시
-      st.table(df_quiz)
+      st.table(quiz)
   
       # 음성 입력 및 녹음된 결과 표시
       audio_data1 = st.audio_input("Record English sentences")
@@ -149,7 +150,7 @@ if password_input == "cmcpl":
           st.write(f"인식된 문장: {st.session_state['recorded_text']}")
   
       # 기존 정답 표시 (변경되지 않도록 유지)
-      st.table(df_answer)
+      st.table(answer)
    
       
   if st.button("Reload"):
