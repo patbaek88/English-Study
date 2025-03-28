@@ -138,7 +138,9 @@ if password_input == "cmcpl":
     
       try:
           # 구글 음성 인식 API 사용하여 텍스트 변환
-          st.session_state.recorded_text = recognizer.recognize_google(audio1, language="en")
+          text1 = st.session_state.recorded_text = recognizer.recognize_google(audio1, language="en")
+
+          st.write(f"You said: {text1}")
       except sr.UnknownValueError:
           st.session_state
 
