@@ -73,9 +73,7 @@ if password_input == "cmcpl":
   if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
   
-  # n개의 무작위 샘플 추출
-  #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
-  n_quiz =1
+
 
   #Remove already used samples
   remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
@@ -105,11 +103,11 @@ if password_input == "cmcpl":
   
   with tab1:
     #tab 1 를 누르면 표시될 내용
-    st.table(quiz)
+    st.table(last_quiz)
   
   with tab2:
     #tab 2를 누르면 표시될 내용 
-    st.table(answer)
+    st.table(last_answer)
 
   with tab3:
     #tab 3를 누르면 표시될 내용
@@ -119,7 +117,7 @@ if password_input == "cmcpl":
 
   with tab4:
       # 기존 문제 표시
-      st.table(quiz)
+      st.table(last_quiz)
   
       # 음성 입력 및 녹음된 결과 표시
       audio_data1 = st.audio_input("Record English sentences")
@@ -150,7 +148,7 @@ if password_input == "cmcpl":
           st.write(f"인식된 문장: {st.session_state['recorded_text']}")
   
       # 기존 정답 표시 (변경되지 않도록 유지)
-      st.table(answer)
+      st.table(last_answer)
    
       
   if st.button("Reload"):
