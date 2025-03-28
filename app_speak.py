@@ -152,7 +152,7 @@ if password_input == "cmcpl":
       st.write(f"You said: {text1}")
 
       # 유사도 계산
-      similarity = calculate_similarity(text1, df_answer)
+      similarity = calculate_similarity(text1, df_answer.iloc[0]["Answer"])
       
       # 결과 출력
       st.write(f"두 문장의 유사도: {similarity:.2f}")
