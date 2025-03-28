@@ -129,7 +129,7 @@ if password_input == "cmcpl":
         recognizer1 = sr.Recognizer()
         with sr.AudioFile(audio_bytes1) as source:
           audio1 = recognizer1.record(source)
-          st.audio(audio1)
+          #st.audio(audio1)
 
         try:
           text1 = recognizer1.recognize_google(audio1, language = "en")
