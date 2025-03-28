@@ -130,7 +130,7 @@ if password_input == "cmcpl":
       audio_path = "uploaded_audio.wav"
         
       with open(audio_path, "wb") as f:
-          f.write(audio_data.getvalue())
+          f.write(audio_data1.getvalue())
     
       recognizer = sr.Recognizer()
       with sr.AudioFile(audio_path) as source:
