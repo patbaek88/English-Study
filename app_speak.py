@@ -155,7 +155,7 @@ if password_input == "cmcpl":
       similarity = calculate_similarity(text1, df_answer.iloc[0]["Answer"])
       
       # 결과 출력
-      st.write("Score: ", round(similarity*100, 1))
+      st.write("Score: ", round(similarity*100, 3))
       
       
     except sr.UnknownValueError:
