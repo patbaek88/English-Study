@@ -92,7 +92,7 @@ if password_input == "cmcpl":
     
     # 실제 퀴즈와 답을 last_quiz와 last_answer에 저장
     st.session_state.last_quiz = df_samples.iloc[0]["Korean"]
-    last_answer = df_samples.iloc[0]["English"]
+    st.session_state.last_answer = df_samples.iloc[0]["English"]
 
     # 퀴즈와 답을 데이터프레임에 넣기
     df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
