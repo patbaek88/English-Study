@@ -93,7 +93,7 @@ if password_input == "cmcpl":
     answer = df_answer.iloc[0,0]
     
     # answer가 비어 있지 않다면 gTTS 실행
-    if answer and isinstance(answer, str) and len(answer.strip()) > 0:
+    if answer is not None:
         sound_file = BytesIO()
         tts = gTTS(answer, lang='en', tld=accent, slow=slow)
         tts.write_to_fp(sound_file)
