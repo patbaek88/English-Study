@@ -96,60 +96,60 @@ if password_input == "cmcpl":
   quiz = st.session_state.last_quiz
   answer = st.session_state.last_answer
     
-    sound_file = BytesIO()
-    tts = gTTS(answer, lang='en', tld=accent, slow = slow)
-    tts.write_to_fp(sound_file)
-   
-    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
-    
-    with tab1:
-      #tab 1 를 누르면 표시될 내용
-      st.table(df_quiz)
-    
-    with tab2:
-      #tab 2를 누르면 표시될 내용 
-      st.table(df_answer)
+  sound_file = BytesIO()
+  tts = gTTS(answer, lang='en', tld=accent, slow = slow)
+  tts.write_to_fp(sound_file)
+ 
+  tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
   
-    with tab3:
-      #tab 3를 누르면 표시될 내용
-      autoplay = st.checkbox("자동재생")
-      
-      st.audio(sound_file, autoplay=autoplay)
+  with tab1:
+    #tab 1 를 누르면 표시될 내용
+    st.table(df_quiz)
+  
+  with tab2:
+    #tab 2를 누르면 표시될 내용 
+    st.table(df_answer)
 
-    with tab4:
-        # 기존 문제 표시
-        st.table(df_quiz)
+  with tab3:
+    #tab 3를 누르면 표시될 내용
+    autoplay = st.checkbox("자동재생")
     
-        # 음성 입력 및 녹음된 결과 표시
-        audio_data1 = st.audio_input("Record English sentences")
-    
-        if 'recorded_text' not in st.session_state:
-            st.session_state["recorded_text"] = None
-    
-        if audio_data1 is not None:
-            audio_bytes1 = io.BytesIO(audio_data1.read())
-            if audio_data1.type == "audio/mpeg":
-                audio1 = AudioSegment.from_mp3(audio_bytes1)
-                audio_bytes1 = io.BytesIO()
-                audio1.export(audio_bytes1, format="wav")
-    
-            recognizer1 = sr.Recognizer()
-            with sr.AudioFile(audio_bytes1) as source:
-                audio1 = recognizer1.record(source)
-    
-            try:
-                st.session_state["recorded_text"] = recognizer1.recognize_google(audio1, language="en")
-            except sr.UnknownValueError:
-                st.session_state["recorded_text"] = "음성을 인식할 수 없습니다."
-            except sr.RequestError as e:
-                st.session_state["recorded_text"] = f"음성 인식 서비스 오류: {e}"
-    
-        # 녹음 결과 표시 (이전에 녹음한 결과 유지)
-        if st.session_state["recorded_text"] is not None:
-            st.write(f"인식된 문장: {st.session_state['recorded_text']}")
-    
-        # 기존 정답 표시 (변경되지 않도록 유지)
-        st.table(df_answer)
+    st.audio(sound_file, autoplay=autoplay)
+
+  with tab4:
+      # 기존 문제 표시
+      st.table(df_quiz)
+  
+      # 음성 입력 및 녹음된 결과 표시
+      audio_data1 = st.audio_input("Record English sentences")
+  
+      if 'recorded_text' not in st.session_state:
+          st.session_state["recorded_text"] = None
+  
+      if audio_data1 is not None:
+          audio_bytes1 = io.BytesIO(audio_data1.read())
+          if audio_data1.type == "audio/mpeg":
+              audio1 = AudioSegment.from_mp3(audio_bytes1)
+              audio_bytes1 = io.BytesIO()
+              audio1.export(audio_bytes1, format="wav")
+  
+          recognizer1 = sr.Recognizer()
+          with sr.AudioFile(audio_bytes1) as source:
+              audio1 = recognizer1.record(source)
+  
+          try:
+              st.session_state["recorded_text"] = recognizer1.recognize_google(audio1, language="en")
+          except sr.UnknownValueError:
+              st.session_state["recorded_text"] = "음성을 인식할 수 없습니다."
+          except sr.RequestError as e:
+              st.session_state["recorded_text"] = f"음성 인식 서비스 오류: {e}"
+  
+      # 녹음 결과 표시 (이전에 녹음한 결과 유지)
+      if st.session_state["recorded_text"] is not None:
+          st.write(f"인식된 문장: {st.session_state['recorded_text']}")
+  
+      # 기존 정답 표시 (변경되지 않도록 유지)
+      st.table(df_answer)
    
       
   if st.button("Reload"):
