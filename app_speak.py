@@ -140,10 +140,11 @@ if password_input == "cmcpl":
    
       
   if st.button("Reload"):
+    st.write("")
     
 
 
 
   
 else:
-  st.write("")
+  st.write("Wrong password.")
