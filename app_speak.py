@@ -125,27 +125,29 @@ if password_input == "cmcpl":
 
 
   audio_data1 = st.audio_input("Record English sentences")
-  if audio_data1 is not None:
-      # 녹음된 오디오 파일 처리
-      audio_path = "uploaded_audio.wav"
-        
-      with open(audio_path, "wb") as f:
-          f.write(audio_data1.getvalue())
-    
-      recognizer = sr.Recognizer()
-      with sr.AudioFile(audio_path) as source:
-          audio1 = recognizer.record(source)
-    
-      try:
-          # 구글 음성 인식 API 사용하여 텍스트 변환
-          text1 = st.session_state.recorded_text = recognizer.recognize_google(audio1, language="en")
 
-          st.write(f"You said: {text1}")
-      except sr.UnknownValueError:
-          st.session_state
+  if audio_data1 is not None:
+    audio_bytes1 = io.BytesIO(audio_data1.read())
+    if audio_data1.type == "audio/mpeg":     
+      audio1 = AudioSegment.from_mp3(audio_bytes1)
+      audio_bytes1 = io.BytesIO()
+      audio1.export(audio_bytes1, format ="wav")
+
+    recognizer1 = sr.Recognizer()
+    with sr.AudioFile(audio_bytes1) as source:
+      audio1 = recognizer1.record(source)
+
+    try:
+      text1 = recognizer1.recognize_google(audio1, language = "en")
+      st.write(f"You said: {text1}")
+      
+      
+    except sr.UnknownValueError:
+      st.write("Your sentence was not recognized.")
+    except sr.RequestError as e:
+      st.write(f"Error occured: {e}")
 
    
       
   if st.button("Reload"):
     st.write("")
-
