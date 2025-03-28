@@ -107,29 +107,29 @@ if password_input == "cmcpl":
           st.table(df_quiz)
 
           audio_data1 = st.audio_input("Record English sentences")
-          # 오디오 녹음 후 새로운 상태로 바꾸기 전에 새로고침이 발생하지 않도록
-          if audio_data1 is not None and 'audio_processed' not in st.session_state:
-              # 녹음된 오디오 데이터 처리 (여기서만 상태 변경)
-              audio_bytes1 = io.BytesIO(audio_data1.read())
-              if audio_data1.type == "audio/mpeg":
-                  audio1 = AudioSegment.from_mp3(audio_bytes1)
-                  audio_bytes1 = io.BytesIO()
-                  audio1.export(audio_bytes1, format="wav")
+          # 녹음 후 새로운 상태로 바꾸기 전에 새로고침을 방지
+          if audio_data1 is not None:
+              # 음성 녹음 후 session_state에 상태를 저장
+              if 'audio_processed' not in st.session_state:
+                  audio_bytes1 = io.BytesIO(audio_data1.read())
+                  if audio_data1.type == "audio/mpeg":
+                      audio1 = AudioSegment.from_mp3(audio_bytes1)
+                      audio_bytes1 = io.BytesIO()
+                      audio1.export(audio_bytes1, format="wav")
 
-              recognizer1 = sr.Recognizer()
-              with sr.AudioFile(audio_bytes1) as source:
-                  audio1 = recognizer1.record(source)
+                  recognizer1 = sr.Recognizer()
+                  with sr.AudioFile(audio_bytes1) as source:
+                      audio1 = recognizer1.record(source)
 
-              try:
-                  text1 = recognizer1.recognize_google(audio1, language="en")
-                  st.write(f"인식된 문장: {text1}")
-                  st.table(df_answer)
-                  st.session_state.audio_processed = True  # 음성 처리가 완료되었음을 표시
-              except sr.UnknownValueError:
-                  st.write("음성을 인식할 수 없습니다.")
-              except sr.RequestError as e:
-                  st.write(f"음성 인식 서비스 오류: {e}")
-
+                  try:
+                      text1 = recognizer1.recognize_google(audio1, language="en")
+                      st.write(f"인식된 문장: {text1}")
+                      st.table(df_answer)
+                      st.session_state.audio_processed = True  # 음성 처리 완료 플래그
+                  except sr.UnknownValueError:
+                      st.write("음성을 인식할 수 없습니다.")
+                  except sr.RequestError as e:
+                      st.write(f"음성 인식 서비스 오류: {e}")
 
    
       
