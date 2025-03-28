@@ -4,6 +4,7 @@ gTTS
 pydub
 streamlit-mic-recorder
 SpeechRecognition
+sklearn
 #ffmpeg-python
 #pyttsx3
 #pyaudio
