@@ -100,6 +100,9 @@ if password_input == "cmcpl":
     df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
     quiz = df_quiz.iloc[0,0]
     answer = df_answer.iloc[0,0]
+
+    # 녹음 직전에 df_answer 값을 session_state에 저장
+    st.session_state.saved_answer = df_answer.iloc[0, 0]
     
     sound_file = BytesIO()
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
@@ -150,9 +153,11 @@ if password_input == "cmcpl":
     try:
       text1 = recognizer1.recognize_google(audio1, language = "en")
       st.write(f"You said: {text1}")
+      # 저장된 df_answer 값 사용
+      saved_answer = st.session_state.saved_answer
 
       # 유사도 계산
-      similarity = calculate_similarity(text1, df_answer.iloc[0]["Answer"])
+      similarity = calculate_similarity(text1, saved_answer)
       
       # 결과 출력
       st.write("Score: ", round(similarity*100))
