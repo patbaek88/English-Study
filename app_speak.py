@@ -72,6 +72,7 @@ if password_input == "cmcpl":
     st.session_state.used_samples =[]
   if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
+    st.session_state.last_answer = None
   
 
 
@@ -86,8 +87,8 @@ if password_input == "cmcpl":
     df_samples = remaining_samples.sample(n=1, replace=False)
     st.session_state.used_samples.append(df_samples.index[0])
     
-    df_quiz = df_samples.loc[:, ['Korean']]
-    df_answer = df_samples.loc[:, ['English']]
+    df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
+    df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]}
     quiz = df_quiz.iloc[0,0]
     answer = df_answer.iloc[0,0]
     
