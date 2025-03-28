@@ -89,8 +89,13 @@ if password_input == "cmcpl":
     df_samples = remaining_samples.sample(n=n_quiz, replace=False)
     st.session_state.used_samples.append(df_samples.index[0])
     
-    df_quiz = df_samples.loc[:, ['Korean']]
-    df_answer = df_samples.loc[:, ['English']]
+    # 실제 퀴즈와 답을 last_quiz와 last_answer에 저장
+    st.session_state.last_quiz = df_samples.iloc[0]["Korean"]
+    st.session_state.last_answer = df_samples.iloc[0]["English"]
+
+    # 퀴즈와 답을 데이터프레임에 넣기
+    df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
+    df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
     quiz = df_quiz.iloc[0,0]
     answer = df_answer.iloc[0,0]
     
