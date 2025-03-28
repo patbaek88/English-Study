@@ -140,7 +140,7 @@ if password_input == "cmcpl":
   # 저장된 df_answer 값 사용
   saved_answer = st.session_state.saved_answer
       
-  audio_data1 = st.audio_input("Record: ", saved_answer)
+  audio_data1 = st.audio_input(f"Record: {saved_answer}")
 
   if audio_data1 is not None:
     audio_bytes1 = io.BytesIO(audio_data1.read())
