@@ -134,7 +134,7 @@ if password_input == "cmcpl":
     try:
       text1 = recognizer1.recognize_google(audio1, language = "en")
       st.write(f"You said: {text1}")
-      st.write(last_answer)
+      st.write(st.session_state.last_answer_before_recording)
       
     except sr.UnknownValueError:
       st.write("Your sentence was not recognized.")
