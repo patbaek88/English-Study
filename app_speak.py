@@ -97,7 +97,7 @@ if password_input == "cmcpl":
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
+    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'Listening'])
     
     with tab1:
       #tab 1 를 누르면 표시될 내용
@@ -113,6 +113,7 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
+  st.write("")
   st.subheader('Pronunciation Check')
   audio_data1 = st.audio_input("Record English sentences")
 
