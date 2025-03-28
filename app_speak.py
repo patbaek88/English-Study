@@ -155,6 +155,7 @@ if password_input == "cmcpl":
       st.write(f"You said: {text1}")
       # 저장된 df_answer 값 사용
       saved_answer = st.session_state.saved_answer
+      st.write(f"Answer: {saved_answer}")
 
       # 유사도 계산
       similarity = calculate_similarity(text1, saved_answer)
