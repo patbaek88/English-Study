@@ -5,7 +5,8 @@ import io
 from io import BytesIO
 import speech_recognition as sr
 from pydub import AudioSegment
-
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -123,6 +124,15 @@ if password_input == "cmcpl":
   st.write("")
   st.subheader('Pronunciation Check')
 
+  def calculate_similarity(text1, text2):
+    # CountVectorizer를 이용하여 텍스트를 벡터화
+    vectorizer = CountVectorizer().fit_transform([text1, text2])
+    
+    # 코사인 유사도 계산
+    cosine_sim = cosine_similarity(vectorizer[0], vectorizer[1])
+    
+    # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
+    return cosine_sim[0][0]
 
   audio_data1 = st.audio_input("Record English sentences")
 
@@ -140,6 +150,12 @@ if password_input == "cmcpl":
     try:
       text1 = recognizer1.recognize_google(audio1, language = "en")
       st.write(f"You said: {text1}")
+
+      # 유사도 계산
+      similarity = calculate_similarity(text1, df_answer)
+      
+      # 결과 출력
+      st.write(f"두 문장의 유사도: {similarity:.2f}")
       
       
     except sr.UnknownValueError:
