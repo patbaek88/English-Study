@@ -147,4 +147,4 @@ if password_input == "cmcpl":
 
   
 else:
-  st.write("Wrong password.")
+  st.write("올바른 비밀번호을 입력하세요.")
