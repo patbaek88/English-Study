@@ -140,7 +140,7 @@ if password_input == "cmcpl":
    
       
   if st.button("Reload"):
-    st.write("")
+    st.experimental_rerun()
 
 
 
