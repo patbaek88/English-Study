@@ -34,6 +34,8 @@ if password_input == "cmcpl":
 
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
 
+  saved_answer = None
+
   if st.button("음원 생성"):
 
     
@@ -101,8 +103,7 @@ if password_input == "cmcpl":
     quiz = df_quiz.iloc[0,0]
     answer = df_answer.iloc[0,0]
 
-    # 녹음 직전에 df_answer 값을 session_state에 저장
-    st.session_state.saved_answer = df_answer.iloc[0, 0]
+    
     
     sound_file = BytesIO()
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
@@ -168,6 +169,11 @@ if password_input == "cmcpl":
       st.write("Your sentence was not recognized.")
     except sr.RequestError as e:
       st.write(f"Error occured: {e}")
+
+
+  # 녹음 직전에 df_answer 값을 session_state에 저장
+
+  st.session_state.saved_answer = df_answer.iloc[0, 0]
 
    
       
