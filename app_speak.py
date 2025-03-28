@@ -103,7 +103,7 @@ if password_input == "cmcpl":
   
   with tab1:
     #tab 1 를 누르면 표시될 내용
-    st.table(last_quiz)
+    st.table(quiz)
   
   with tab2:
     #tab 2를 누르면 표시될 내용 
