@@ -137,7 +137,8 @@ if password_input == "cmcpl":
     # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
     return cosine_sim[0][0]
 
-  audio_data1 = st.audio_input(f"Record: {saved_answer}")
+  a = answer
+  audio_data1 = st.audio_input(f"Record: {a}")
 
   if audio_data1 is not None:
     audio_bytes1 = io.BytesIO(audio_data1.read())
