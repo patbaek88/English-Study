@@ -140,7 +140,8 @@ if password_input == "cmcpl":
    
       
   if st.button("Reload"):
-    st.experimental_rerun()
+    st.session_state.used_samples = []
+    st.session_state.last_quiz = None
 
 
 
