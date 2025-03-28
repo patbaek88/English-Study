@@ -79,19 +79,22 @@ if password_input == "cmcpl":
 
   #Remove already used samples
   remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
-
+  
   if remaining_samples.empty:
-    st.write("No more new quizzes available!")
-    st.session_state.used_samples = []
-    st.session_state.last_quiz = None
+      st.write("No more new quizzes available!")
+      st.session_state.used_samples = []
+      st.session_state.last_quiz = None
+      st.session_state.last_answer = None
   else:
-    df_samples = remaining_samples.sample(n=n_quiz, replace=False)
-    st.session_state.used_samples.append(df_samples.index[0])
-    
-    df_quiz = df_samples.loc[:, ['Korean']]
-    df_answer = df_samples.loc[:, ['English']]
-    quiz = df_quiz.iloc[0,0]
-    answer = df_answer.iloc[0,0]
+      if st.session_state.last_quiz is None:
+          df_samples = remaining_samples.sample(n=1, replace=False)
+          st.session_state.used_samples.append(df_samples.index[0])
+          
+          st.session_state.last_quiz = df_samples.loc[:, ['Korean']].iloc[0, 0]
+          st.session_state.last_answer = df_samples.loc[:, ['English']].iloc[0, 0]
+  
+  quiz = st.session_state.last_quiz
+  answer = st.session_state.last_answer
     
     sound_file = BytesIO()
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
