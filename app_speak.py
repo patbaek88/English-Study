@@ -72,6 +72,7 @@ if password_input == "cmcpl":
     st.session_state.used_samples =[]
   if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
+    st.session_state.last_answer = None
   
   # n개의 무작위 샘플 추출
   #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
