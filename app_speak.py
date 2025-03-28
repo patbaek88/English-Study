@@ -113,39 +113,42 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
+    # 음성 인식 결과를 세션 상태에 저장
+    if 'recognized_text' not in st.session_state:
+        st.session_state.recognized_text = ""
+    
     with tab4:
-      #tab 4 를 누르면 표시될 내용
-      st.table(df_quiz)
+        st.table(df_quiz)
+    
+        audio_data1 = st.audio_input("Record English sentences")
+    
+        if audio_data1 is not None:
+            audio_bytes1 = io.BytesIO(audio_data1.read())
+            if audio_data1.type == "audio/mpeg":     
+                audio1 = AudioSegment.from_mp3(audio_bytes1)
+                audio_bytes1 = io.BytesIO()
+                audio1.export(audio_bytes1, format="wav")
+    
+            recognizer1 = sr.Recognizer()
+            with sr.AudioFile(audio_bytes1) as source:
+                audio1 = recognizer1.record(source)
+    
+            try:
+                text1 = recognizer1.recognize_google(audio1, language="en")
+                st.session_state.recognized_text = text1  # 세션 상태 업데이트
+            except sr.UnknownValueError:
+                st.session_state.recognized_text = "음성을 인식할 수 없습니다."
+            except sr.RequestError as e:
+                st.session_state.recognized_text = f"음성 인식 서비스 오류: {e}"
+    
+        # 세션 상태의 값을 그대로 유지하며 표시
+        st.write(f"인식된 문장: {st.session_state.recognized_text}")
+        st.table(df_answer)
+    
+    # Reload 버튼 추가
+    if st.button("Reload"):
+        st.session_state.recognized_text = ""  # 초기화
+        st.experimental_rerun()  # 페이지 리로드
 
-      audio_data1 = st.audio_input("Record English sentences")
-
-      if audio_data1 is not None:
-        audio_bytes1 = io.BytesIO(audio_data1.read())
-        if audio_data1.type == "audio/mpeg":     
-          audio1 = AudioSegment.from_mp3(audio_bytes1)
-          audio_bytes1 = io.BytesIO()
-          audio1.export(audio_bytes1, format ="wav")
-
-        recognizer1 = sr.Recognizer()
-        with sr.AudioFile(audio_bytes1) as source:
-          audio1 = recognizer1.record(source)
-
-        try:
-          text1 = recognizer1.recognize_google(audio1, language = "en")
-          st.write(f"인식된 문장: {text1}")
-          st.table(df_answer)
-        except sr.UnknownValueError:
-          st.write("음성을 인식할 수 없습니다.")
-        except sr.RequestError as e:
-          st.write(f"음성 인식 서비스 오류: {e}")
-   
-      
-  if st.button("Reload"):
-    st.write("")
-
-
-
-  
 else:
   st.write("")
-  
