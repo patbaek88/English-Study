@@ -138,7 +138,7 @@ if password_input == "cmcpl":
     return cosine_sim[0][0]
 
       
-  audio_data1 = st.audio_input(f"Record: ")
+  audio_data1 = st.audio_input(f"Record: {answer}")
 
   if audio_data1 is not None:
     audio_bytes1 = io.BytesIO(audio_data1.read())
