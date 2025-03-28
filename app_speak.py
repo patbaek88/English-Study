@@ -107,10 +107,9 @@ if password_input == "cmcpl":
           st.table(df_quiz)
 
           audio_data1 = st.audio_input("Record English sentences")
-          # 녹음 후 새로운 상태로 바꾸기 전에 새로고침을 방지
           if audio_data1 is not None:
-              # 음성 녹음 후 session_state에 상태를 저장
               if 'audio_processed' not in st.session_state:
+                  # 음성 녹음 후 session_state에 상태를 저장
                   audio_bytes1 = io.BytesIO(audio_data1.read())
                   if audio_data1.type == "audio/mpeg":
                       audio1 = AudioSegment.from_mp3(audio_bytes1)
