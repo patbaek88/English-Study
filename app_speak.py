@@ -113,13 +113,13 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-    # 음성 인식 결과를 세션 상태에 저장
+    # "recognized_text" 상태를 초기화
     if 'recognized_text' not in st.session_state:
         st.session_state.recognized_text = ""
     
     with tab4:
         st.table(df_quiz)
-    
+        
         audio_data1 = st.audio_input("Record English sentences")
     
         if audio_data1 is not None:
@@ -127,22 +127,22 @@ if password_input == "cmcpl":
             if audio_data1.type == "audio/mpeg":     
                 audio1 = AudioSegment.from_mp3(audio_bytes1)
                 audio_bytes1 = io.BytesIO()
-                audio1.export(audio_bytes1, format="wav")
+                audio1.export(audio_bytes1, format ="wav")
     
             recognizer1 = sr.Recognizer()
             with sr.AudioFile(audio_bytes1) as source:
                 audio1 = recognizer1.record(source)
     
             try:
-                text1 = recognizer1.recognize_google(audio1, language="en")
-                st.session_state.recognized_text = text1  # 세션 상태 업데이트
+                st.session_state.recognized_text = recognizer1.recognize_google(audio1, language="en")
             except sr.UnknownValueError:
                 st.session_state.recognized_text = "음성을 인식할 수 없습니다."
             except sr.RequestError as e:
                 st.session_state.recognized_text = f"음성 인식 서비스 오류: {e}"
     
-        # 세션 상태의 값을 그대로 유지하며 표시
+        # 화면이 새로고침 되어도 저장된 인식 결과 유지
         st.write(f"인식된 문장: {st.session_state.recognized_text}")
+    
         st.table(df_answer)
     
     # Reload 버튼 추가
