@@ -126,6 +126,8 @@ if password_input == "cmcpl":
           audio_bytes1 = io.BytesIO()
           audio1.export(audio_bytes1, format ="wav")
 
+        st.audio(audio_bytes, start_time=0)
+
         recognizer1 = sr.Recognizer()
         with sr.AudioFile(audio_bytes1) as source:
           audio1 = recognizer1.record(source)
