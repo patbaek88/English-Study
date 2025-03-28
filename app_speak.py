@@ -138,7 +138,7 @@ if password_input == "cmcpl":
     return cosine_sim[0][0]
 
   # 저장된 df_answer 값 사용
-  saved_answer = st.session_state.answer
+  st.session_state.saved_answer = df_answer.iloc[0, 0]
       
   audio_data1 = st.audio_input(f"Record: {saved_answer}")
 
