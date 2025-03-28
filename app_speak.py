@@ -123,7 +123,7 @@ if password_input == "cmcpl":
   st.subheader('Pronunciation Check')
 
   # 녹음 직전에 answer를 따로 저장하기
-  answer_before_recording = st.session_state.last_answer  # 녹음 직전 answer 저장
+  answer_before_recording = last_answer  # 녹음 직전 answer 저장
   audio_data1 = st.audio_input("Record English sentences")
 
   if audio_data1 is not None:
