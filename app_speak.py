@@ -1,59 +1,49 @@
 import streamlit as st
 import pandas as pd
-from io import BytesIO
-from gtts import gTTS
+import speech_recognition as sr
 
-# 데이터 예시 (사용자 데이터에 맞게 수정)
+# 📌 문제 데이터 (예제)
 df = pd.DataFrame({
-    'Korean': ['안녕하세요', '고맙습니다', '사랑해요'],
-    'English': ['Hello', 'Thank you', 'I love you']
+    "Korean": ["안녕하세요", "고맙습니다", "사랑해요"],
+    "English": ["Hello", "Thank you", "I love you"]
 })
 
-# 세션 상태 초기화
-if 'used_samples' not in st.session_state:
-    st.session_state.used_samples = []
-if 'last_quiz' not in st.session_state:
+# 📌 세션 상태 초기화
+if "last_quiz" not in st.session_state:
     st.session_state.last_quiz = None
+    st.session_state.last_answer = None
+    st.session_state.recorded_text = None  # 녹음된 텍스트 상태 추가
 
-# 문제 샘플을 사용하여 퀴즈 진행
-remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
+# 🎯 퀴즈 문제 설정 (새로고침 방지)
+if st.session_state.last_quiz is None:
+    df_sample = df.sample(n=1, random_state=42)  # 🔥 랜덤 but 고정된 값 유지
+    st.session_state.last_quiz = df_sample.iloc[0]["Korean"]
+    st.session_state.last_answer = df_sample.iloc[0]["English"]
 
-if remaining_samples.empty:
-    st.write("No more new quizzes available!")
-    st.session_state.used_samples = []  # 모든 퀴즈가 끝나면 상태 초기화
-    st.session_state.last_quiz = None
-else:
-    df_samples = remaining_samples.sample(n=1, replace=False)
-    st.session_state.used_samples.append(df_samples.index[0])
+df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
+df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
 
-    # 퀴즈와 답 생성
-    df_quiz = df_samples.loc[:, ['Korean']]
-    df_answer = df_samples.loc[:, ['English']]
-    quiz = df_quiz.iloc[0, 0]
-    answer = df_answer.iloc[0, 0]
+# 📝 테이블 표시 (고정)
+st.table(df_quiz)
+st.table(df_answer)
 
-    # 퀴즈 표시
-    st.subheader('Quiz')
-    st.write(f"퀴즈: {quiz}")
+# 🎙 음성 녹음 (새로고침 방지)
+audio_data = st.audio_input("Record English sentences")
 
-    # TTS 생성
-    sound_file = BytesIO()
-    tts = gTTS(answer, lang='en', slow=False)
-    tts.write_to_fp(sound_file)
-    
-    # 음성 재생
-    st.audio(sound_file, format='audio/wav')
-
-# 새로고침 방지
-# 여기에 녹음 부분을 추가하고, 녹음 후 새로운 상태로 처리되도록 조치
-audio_data = st.audio_input("Record the answer in English")
 if audio_data is not None:
-    # 여기에 녹음 후 결과 처리하는 로직 추가
-    # 녹음 결과를 텍스트로 변환하고, 사용자가 맞혔는지 확인하는 로직 등
-    st.write(f"Audio recorded: {audio_data}")
+    # 녹음된 오디오 파일 처리
+    audio_path = "uploaded_audio.wav"
+    
+    with open(audio_path, "wb") as f:
+        f.write(audio_data.getvalue())
 
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(audio_path) as source:
+        audio = recognizer.record(source)
 
-  
-else:
-  st.write("")
+    try:
+        # 구글 음성 인식 API 사용하여 텍스트 변환
+        st.session_state.recorded_text = recognizer.recognize_google(audio, language="en")
+    except sr.UnknownValueError:
+        st.session_state
 
