@@ -86,8 +86,8 @@ if password_input == "cmcpl":
   st.table(df_quiz)
   st.table(df_answer)
     
-  df_quiz = df_samples.loc[:, ['Korean']]
-  df_answer = df_samples.loc[:, ['English']]
+  df_quiz = df_sample.loc[:, ['Korean']]
+  df_answer = df_sample.loc[:, ['English']]
   quiz = df_quiz.iloc[0,0]
   answer = df_answer.iloc[0,0]
   
