@@ -78,9 +78,6 @@ if password_input == "cmcpl":
     st.session_state.last_answer = None
      
   
-  # n개의 무작위 샘플 추출
-  #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
-  n_quiz =1
 
   #Remove already used samples
   remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
@@ -90,7 +87,7 @@ if password_input == "cmcpl":
     st.session_state.used_samples = []
     
   else:
-    df_samples = remaining_samples.sample(n=n_quiz, replace=False)
+    df_samples = remaining_samples.sample(n=1, replace=False)
     st.session_state.used_samples.append(df_samples.index[0])
     
     # 실제 퀴즈와 답을 last_quiz와 last_answer에 저장
@@ -128,6 +125,8 @@ if password_input == "cmcpl":
   st.write("")
   st.subheader('Pronunciation Check')
 
+
+  st.write("Say: ", df_quiz)
   def calculate_similarity(text1, text2):
     # CountVectorizer를 이용하여 텍스트를 벡터화
     vectorizer = CountVectorizer().fit_transform([text1, text2])
