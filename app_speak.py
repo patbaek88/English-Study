@@ -123,8 +123,7 @@ if password_input == "cmcpl":
   st.write("")
   st.subheader('Pronunciation Check')
 
-  # 녹음 직전에 answer를 따로 저장하기
-  answer_before_recording = st.session_state.last_answer  # 녹음 직전 answer 저장
+
   audio_data1 = st.audio_input("Record English sentences")
 
   if audio_data1 is not None:
@@ -141,7 +140,7 @@ if password_input == "cmcpl":
     try:
       text1 = recognizer1.recognize_google(audio1, language = "en")
       st.write(f"You said: {text1}")
-      st.write(answer_before_recording)
+      
       
     except sr.UnknownValueError:
       st.write("Your sentence was not recognized.")
