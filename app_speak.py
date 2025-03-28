@@ -73,82 +73,71 @@ if password_input == "cmcpl":
   if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
   
-
+  # n개의 무작위 샘플 추출
+  #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
+  n_quiz =1
 
   #Remove already used samples
   remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
-  
+
   if remaining_samples.empty:
-      st.write("No more new quizzes available!")
-      st.session_state.used_samples = []
-      st.session_state.last_quiz = None
-      st.session_state.last_answer = None
+    st.write("No more new quizzes available!")
+    st.session_state.used_samples = []
+    st.session_state.last_quiz = None
   else:
-      if st.session_state.last_quiz is None:
-          df_samples = remaining_samples.sample(n=1, replace=False)
-          st.session_state.used_samples.append(df_samples.index[0])
-          
-          st.session_state.last_quiz = df_samples.loc[:, ['Korean']].iloc[0, 0]
-          st.session_state.last_answer = df_samples.loc[:, ['English']].iloc[0, 0]
-
-  
-  quiz = st.session_state.last_quiz
-  answer = st.session_state.last_answer
+    df_samples = remaining_samples.sample(n=n_quiz, replace=False)
+    st.session_state.used_samples.append(df_samples.index[0])
     
-  sound_file = BytesIO()
-  tts = gTTS(answer, lang='en', tld=accent, slow = slow)
-  tts.write_to_fp(sound_file)
- 
-  tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
-  
-  with tab1:
-    #tab 1 를 누르면 표시될 내용
-    st.table(df_samples.loc[:, ['Korean']])
-  
-  with tab2:
-    #tab 2를 누르면 표시될 내용 
-    st.table(df_samples.loc[:, ['English']])
-
-  with tab3:
-    #tab 3를 누르면 표시될 내용
-    autoplay = st.checkbox("자동재생")
+    df_quiz = df_samples.loc[:, ['Korean']]
+    df_answer = df_samples.loc[:, ['English']]
+    quiz = df_quiz.iloc[0,0]
+    answer = df_answer.iloc[0,0]
     
-    st.audio(sound_file, autoplay=autoplay)
-
-  with tab4:
-      # 기존 문제 표시
-      st.table(df_samples.loc[:, ['Korean']])
+    sound_file = BytesIO()
+    tts = gTTS(answer, lang='en', tld=accent, slow = slow)
+    tts.write_to_fp(sound_file)
+   
+    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Speaking'])
+    
+    with tab1:
+      #tab 1 를 누르면 표시될 내용
+      st.table(df_quiz)
+    
+    with tab2:
+      #tab 2를 누르면 표시될 내용 
+      st.table(df_answer)
   
-      # 음성 입력 및 녹음된 결과 표시
+    with tab3:
+      #tab 3를 누르면 표시될 내용
+      autoplay = st.checkbox("자동재생")
+      
+      st.audio(sound_file, autoplay=autoplay)
+
+    with tab4:
+      #tab 4 를 누르면 표시될 내용
+      st.table(df_quiz)
+
       audio_data1 = st.audio_input("Record English sentences")
-  
-      if 'recorded_text' not in st.session_state:
-          st.session_state["recorded_text"] = None
-  
+
       if audio_data1 is not None:
-          audio_bytes1 = io.BytesIO(audio_data1.read())
-          if audio_data1.type == "audio/mpeg":
-              audio1 = AudioSegment.from_mp3(audio_bytes1)
-              audio_bytes1 = io.BytesIO()
-              audio1.export(audio_bytes1, format="wav")
-  
-          recognizer1 = sr.Recognizer()
-          with sr.AudioFile(audio_bytes1) as source:
-              audio1 = recognizer1.record(source)
-  
-          try:
-              st.session_state["recorded_text"] = recognizer1.recognize_google(audio1, language="en")
-          except sr.UnknownValueError:
-              st.session_state["recorded_text"] = "음성을 인식할 수 없습니다."
-          except sr.RequestError as e:
-              st.session_state["recorded_text"] = f"음성 인식 서비스 오류: {e}"
-  
-      # 녹음 결과 표시 (이전에 녹음한 결과 유지)
-      if st.session_state["recorded_text"] is not None:
-          st.write(f"인식된 문장: {st.session_state['recorded_text']}")
-  
-      # 기존 정답 표시 (변경되지 않도록 유지)
-      st.table(df_samples.loc[:, ['English']])
+        audio_bytes1 = io.BytesIO(audio_data1.read())
+        if audio_data1.type == "audio/mpeg":     
+          audio1 = AudioSegment.from_mp3(audio_bytes1)
+          audio_bytes1 = io.BytesIO()
+          audio1.export(audio_bytes1, format ="wav")
+
+        recognizer1 = sr.Recognizer()
+        with sr.AudioFile(audio_bytes1) as source:
+          audio1 = recognizer1.record(source)
+
+        try:
+          text1 = recognizer1.recognize_google(audio1, language = "en")
+          st.write(f"인식된 문장: {text1}")
+          st.table(df_answer)
+        except sr.UnknownValueError:
+          st.write("음성을 인식할 수 없습니다.")
+        except sr.RequestError as e:
+          st.write(f"음성 인식 서비스 오류: {e}")
    
       
   if st.button("Reload"):
