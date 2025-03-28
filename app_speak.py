@@ -134,8 +134,7 @@ if password_input == "cmcpl":
             except sr.RequestError as e:
                 st.write(f"음성 인식 서비스 오류: {e}")
 
-    else:
-        st.write("답변이 없습니다.")
+
    
       
   if st.button("Reload"):
