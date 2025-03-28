@@ -68,22 +68,23 @@ if password_input == "cmcpl":
   st.write("")
   st.subheader('Quiz')  # 타이틀명 지정
 
-  if 'used_samples' not in st.session_state:
-    st.session_state.used_samples =[]
-  if 'last_quiz' not in st.session_state:
-    st.session_state.last_quiz = None
+   # 📌 세션 상태 초기화
+  if "last_quiz" not in st.session_state:
+      st.session_state.last_quiz = None
+      st.session_state.last_answer = None
   
-
-  #Remove already used samples
-  remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
-
-  if remaining_samples.empty:
-    st.write("No more new quizzes available!")
-    st.session_state.used_samples = []
-    st.session_state.last_quiz = None
-  else:
-    df_samples = remaining_samples.sample(n=1, replace=False, random_state=42)
-    st.session_state.used_samples.append(df_samples.index[0])
+  # 🎯 퀴즈 문제 설정 (새로고침 방지)
+  if st.session_state.last_quiz is None:
+      df_sample = df.sample(n=1, random_state=42)  # 🔥 랜덤 but 고정된 값 유지
+      st.session_state.last_quiz = df_sample.iloc[0]["Korean"]
+      st.session_state.last_answer = df_sample.iloc[0]["English"]
+  
+  df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
+  df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
+  
+  # 📝 테이블 표시 (고정)
+  st.table(df_quiz)
+  st.table(df_answer)
     
   df_quiz = df_samples.loc[:, ['Korean']]
   df_answer = df_samples.loc[:, ['English']]
