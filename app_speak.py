@@ -48,5 +48,5 @@ if audio_data is not None:
         st.session_state
 
 if st.button("Reload"):
-st.write("")
+    st.write("")
 
