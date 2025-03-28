@@ -47,3 +47,6 @@ if audio_data is not None:
     except sr.UnknownValueError:
         st.session_state
 
+if st.button("Reload"):
+st.write("")
+
