@@ -137,8 +137,6 @@ if password_input == "cmcpl":
     # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
     return cosine_sim[0][0]
 
-  # 녹음 직전에 df_answer 값을 session_state에 저장
-  st.session_state.saved_answer = df_answer.iloc[0, 0]  
   audio_data1 = st.audio_input(f"Record: {saved_answer}")
 
   if audio_data1 is not None:
@@ -156,7 +154,7 @@ if password_input == "cmcpl":
       text1 = recognizer1.recognize_google(audio1, language = "en")
       st.write(f"You said: {text1}")
       # 저장된 df_answer 값 사용
-      #saved_answer = st.session_state.saved_answer
+      saved_answer = st.session_state.saved_answer
       st.write("Answer: ", saved_answer)
 
 
