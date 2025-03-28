@@ -73,6 +73,7 @@ if password_input == "cmcpl":
   if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
     st.session_state.last_answer = None
+     
   
   # n개의 무작위 샘플 추출
   #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
@@ -91,7 +92,7 @@ if password_input == "cmcpl":
     
     # 실제 퀴즈와 답을 last_quiz와 last_answer에 저장
     st.session_state.last_quiz = df_samples.iloc[0]["Korean"]
-    st.session_state.last_answer = df_samples.iloc[0]["English"]
+    last_answer = df_samples.iloc[0]["English"]
 
     # 퀴즈와 답을 데이터프레임에 넣기
     df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
