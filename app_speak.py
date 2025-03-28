@@ -1,52 +1,149 @@
 import streamlit as st
 import pandas as pd
+from gtts import gTTS
+import io
+from io import BytesIO
 import speech_recognition as sr
+from pydub import AudioSegment
 
-# 📌 문제 데이터 (예제)
-df = pd.DataFrame({
-    "Korean": ["안녕하세요", "고맙습니다", "사랑해요"],
-    "English": ["Hello", "Thank you", "I love you"]
-})
 
-# 📌 세션 상태 초기화
-if "last_quiz" not in st.session_state:
+password_input = st.text_input("암호를 입력해주세요",type= "password")
+
+if password_input == "cmcpl":
+
+  
+  # review 데이터 불러오기
+  dataframe = pd.read_csv('review_speak.csv') #encoding="euc-kr")
+
+  topics = dataframe["Topic"].drop_duplicates().tolist()
+
+
+  st.write("")
+  st.subheader('학습')
+   # 모든 주제를 기본값으로 선택
+  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=None)
+
+  accent = 'com'
+  accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Africa'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
+  accent_select = st.selectbox('영어 억양 선택', accent_df['Accent'])
+  accent_code = accent_df[accent_df['Accent'] == accent_select]['Accent_Code']
+  accent = accent_code.iloc[0]
+
+  slow = st.checkbox("영어 읽기 느리게")
+
+  df = dataframe[dataframe["Topic"].isin(selected_topics)]
+
+  if st.button("음원 생성"):
+
+    
+    
+    # 반복 재생 여부 체크박스 추가
+    #repeat_audio = st.checkbox("반복 재생")
+      
+     # 음성 파일을 저장할 메모리 버퍼 생성
+    audio_bytes = io.BytesIO()
+    
+    combined_audio = io.BytesIO()
+  
+    for _, row in df.iterrows():
+        # 한국어 문장 변환
+        tts_ko = gTTS(text=row["Korean"], lang="ko")
+        tts_ko.write_to_fp(combined_audio)
+  
+        # 영어 문장 변환
+        tts_en = gTTS(text=row["English"], lang="en", tld=accent, slow=slow)
+        tts_en.write_to_fp(combined_audio)
+
+  
+    # Streamlit에서 오디오 재생
+    st.audio(combined_audio.getvalue(), format="audio/mp3")
+  
+    # 아이폰에서 원활한 재생을 위해 다운로드 버튼 제공
+    st.download_button(label="음원 다운로드", data=combined_audio.getvalue(), file_name="audio.mp3", mime="audio/mpeg")
+  
+  
+  with st.expander('표현 보기'):
+      st.write(df)
+
+  st.write("")
+  st.subheader('Quiz')  # 타이틀명 지정
+
+  if 'used_samples' not in st.session_state:
+    st.session_state.used_samples =[]
+  if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
     st.session_state.last_answer = None
-    st.session_state.recorded_text = None  # 녹음된 텍스트 상태 추가
+     
+  
+  # n개의 무작위 샘플 추출
+  #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
+  n_quiz =1
 
-# 🎯 퀴즈 문제 설정 (새로고침 방지)
-if st.session_state.last_quiz is None:
-    df_sample = df.sample(n=1, random_state=42)  # 🔥 랜덤 but 고정된 값 유지
-    st.session_state.last_quiz = df_sample.iloc[0]["Korean"]
-    st.session_state.last_answer = df_sample.iloc[0]["English"]
+  #Remove already used samples
+  remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
 
-df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
-df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
-
-# 📝 테이블 표시 (고정)
-st.table(df_quiz)
-st.table(df_answer)
-
-# 🎙 음성 녹음 (새로고침 방지)
-audio_data = st.audio_input("Record English sentences")
-
-if audio_data is not None:
-    # 녹음된 오디오 파일 처리
-    audio_path = "uploaded_audio.wav"
+  if remaining_samples.empty:
+    st.write("No more new quizzes available!")
+    st.session_state.used_samples = []
     
-    with open(audio_path, "wb") as f:
-        f.write(audio_data.getvalue())
+  else:
+    df_samples = remaining_samples.sample(n=n_quiz, replace=False)
+    st.session_state.used_samples.append(df_samples.index[0])
+    
+    # 실제 퀴즈와 답을 last_quiz와 last_answer에 저장
+    st.session_state.last_quiz = df_samples.iloc[0]["Korean"]
+    st.session_state.last_answer = df_samples.iloc[0]["English"]
 
-    recognizer = sr.Recognizer()
-    with sr.AudioFile(audio_path) as source:
-        audio = recognizer.record(source)
+    # 퀴즈와 답을 데이터프레임에 넣기
+    df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
+    df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
+    quiz = df_quiz.iloc[0,0]
+    answer = df_answer.iloc[0,0]
+    
+    sound_file = BytesIO()
+    tts = gTTS(answer, lang='en', tld=accent, slow = slow)
+    tts.write_to_fp(sound_file)
+   
+    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'Listening'])
+    
+    with tab1:
+      #tab 1 를 누르면 표시될 내용
+      st.table(df_quiz)
+    
+    with tab2:
+      #tab 2를 누르면 표시될 내용 
+      st.table(df_answer)
+  
+    with tab3:
+      #tab 3를 누르면 표시될 내용
+      autoplay = st.checkbox("자동재생")
+      
+      st.audio(sound_file, autoplay=autoplay)
 
-    try:
-        # 구글 음성 인식 API 사용하여 텍스트 변환
-        st.session_state.recorded_text = recognizer.recognize_google(audio, language="en")
-    except sr.UnknownValueError:
-        st.session_state
+  st.write("")
+  st.subheader('Pronunciation Check')
 
-if st.button("Reload"):
+
+  audio_data1 = st.audio_input("Record English sentences")
+  if audio_data1 is not None:
+      # 녹음된 오디오 파일 처리
+      audio_path = "uploaded_audio.wav"
+        
+      with open(audio_path, "wb") as f:
+          f.write(audio_data.getvalue())
+    
+      recognizer = sr.Recognizer()
+      with sr.AudioFile(audio_path) as source:
+          audio1 = recognizer.record(source)
+    
+      try:
+          # 구글 음성 인식 API 사용하여 텍스트 변환
+          st.session_state.recorded_text = recognizer.recognize_google(audio1, language="en")
+      except sr.UnknownValueError:
+          st.session_state
+
+   
+      
+  if st.button("Reload"):
     st.write("")
 
