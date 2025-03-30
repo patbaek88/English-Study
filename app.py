@@ -14,7 +14,7 @@ if password_input == "cmcpl":
 
   
   # review 데이터 불러오기
-  dataframe = pd.read_csv('review_speak.csv') #encoding="euc-kr")
+  dataframe = pd.read_csv('review.csv') #encoding="euc-kr")
 
   topics = dataframe["Topic"].drop_duplicates().tolist()
 
