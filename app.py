@@ -22,7 +22,7 @@ if password_input == "cmcpl":
   st.write("")
   st.subheader('학습')
    # 모든 주제를 기본값으로 선택
-  selected_topics = st.multiselect(label="학습 주제 선택", options=topics, default=None)
+  selected_topics = st.multiselect(label="학습 주제 선택 (복수 선택 가능)", options=topics, default=None)
 
   accent = 'com'
   accent_df = pd.DataFrame({'Accent':['United States', 'United Kingdom', 'Ireland', 'Canada', 'Australia', 'India', 'South Africa'],  'Accent_Code':['com', 'co.uk', 'ie', 'ca', 'com.au', 'co.in', 'co.za']})
