@@ -3,16 +3,10 @@ import pandas as pd
 from gtts import gTTS
 import io
 from io import BytesIO
-
-
-from streamlit_mic_recorder import mic_recorder
 import speech_recognition as sr
-
 from pydub import AudioSegment
-from pydub.playback import play
-
-import pyttsx3
-
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 password_input = st.text_input("암호를 입력해주세요",type= "password")
 
@@ -20,7 +14,7 @@ if password_input == "cmcpl":
 
   
   # review 데이터 불러오기
-  dataframe = pd.read_csv('review.csv')
+  dataframe = pd.read_csv('review_speak.csv') #encoding="euc-kr")
 
   topics = dataframe["Topic"].drop_duplicates().tolist()
 
@@ -39,6 +33,8 @@ if password_input == "cmcpl":
   slow = st.checkbox("영어 읽기 느리게")
 
   df = dataframe[dataframe["Topic"].isin(selected_topics)]
+
+  saved_answer = None
 
   if st.button("음원 생성"):
 
@@ -79,10 +75,9 @@ if password_input == "cmcpl":
     st.session_state.used_samples =[]
   if 'last_quiz' not in st.session_state:
     st.session_state.last_quiz = None
+    st.session_state.last_answer = None
+     
   
-  # n개의 무작위 샘플 추출
-  #n_quiz = st.number_input('한번에 나오는 문제 수 설정', 0, 99, value = 1)
-  n_quiz =1
 
   #Remove already used samples
   remaining_samples = df[~df.index.isin(st.session_state.used_samples)]
@@ -90,34 +85,96 @@ if password_input == "cmcpl":
   if remaining_samples.empty:
     st.write("No more new quizzes available!")
     st.session_state.used_samples = []
-    st.session_state.last_quiz = None
+    
   else:
-    df_samples = remaining_samples.sample(n=n_quiz, replace=False)
+    df_samples = remaining_samples.sample(n=1, replace=False)
     st.session_state.used_samples.append(df_samples.index[0])
     
-    df_quiz = df_samples.loc[:, ['Korean']]
-    df_answer = df_samples.loc[:, ['English']]
+    # 실제 퀴즈와 답을 last_quiz와 last_answer에 저장
+    st.session_state.last_quiz = df_samples.iloc[0]["Korean"]
+    st.session_state.last_answer = df_samples.iloc[0]["English"]
+
+    # 퀴즈와 답을 데이터프레임에 넣기
+    df_quiz = pd.DataFrame({"Quiz": [st.session_state.last_quiz]})
+    df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
     quiz = df_quiz.iloc[0,0]
     answer = df_answer.iloc[0,0]
+
+    
     
     sound_file = BytesIO()
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'English Listening'])
+    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'Listening'])
+    
     with tab1:
-      #tab A 를 누르면 표시될 내용
+      #tab 1 를 누르면 표시될 내용
       st.table(df_quiz)
-      
+    
     with tab2:
-      #tab B를 누르면 표시될 내용 
+      #tab 2를 누르면 표시될 내용 
       st.table(df_answer)
   
     with tab3:
-      #tab C를 누르면 표시될 내용
+      #tab 3를 누르면 표시될 내용
       autoplay = st.checkbox("자동재생")
       
       st.audio(sound_file, autoplay=autoplay)
+
+  st.write("")
+  st.subheader('Pronunciation Check')
+
+
+
+  def calculate_similarity(text1, text2):
+    # CountVectorizer를 이용하여 텍스트를 벡터화
+    vectorizer = CountVectorizer().fit_transform([text1, text2])
+    
+    # 코사인 유사도 계산
+    cosine_sim = cosine_similarity(vectorizer[0], vectorizer[1])
+    
+    # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
+    return cosine_sim[0][0]
+
+
+  audio_data1 = st.audio_input("Record English Answer in Quiz")
+
+  if audio_data1 is not None:
+    audio_bytes1 = io.BytesIO(audio_data1.read())
+    if audio_data1.type == "audio/mpeg":     
+      audio1 = AudioSegment.from_mp3(audio_bytes1)
+      audio_bytes1 = io.BytesIO()
+      audio1.export(audio_bytes1, format ="wav")
+
+    recognizer1 = sr.Recognizer()
+    with sr.AudioFile(audio_bytes1) as source:
+      audio1 = recognizer1.record(source)
+
+    try:
+      text1 = recognizer1.recognize_google(audio1, language = "en")
+      st.write(f"You said: {text1}")
+      # 저장된 df_answer 값 사용
+      saved_answer = st.session_state.saved_answer
+      st.write("Answer: ", saved_answer)
+
+
+      # 유사도 계산
+      similarity = calculate_similarity(text1, saved_answer)
+      
+      # 결과 출력
+      st.write("Score: ", round(similarity*100))
+      
+      
+    except sr.UnknownValueError:
+      st.write("Your sentence was not recognized.")
+    except sr.RequestError as e:
+      st.write(f"Error occured: {e}")
+
+
+  # 녹음 직전에 df_answer 값을 session_state에 저장
+
+  st.session_state.saved_answer = df_answer.iloc[0, 0]
 
    
       
@@ -131,8 +188,6 @@ if password_input == "cmcpl":
 
 
 
-  
-else:
-  st.write("")
+
   
   
