@@ -164,8 +164,10 @@ if password_input == "cmcpl":
           # 저장된 df_answer 값 사용
           saved_answer = st.session_state.saved_answer
           st.write("Answer: ", saved_answer)
-          sound_file = st.session_state.sound_file
-          st.audio(sound_file)
+          sound_file1 = BytesIO()
+          tts1 = gTTS(saved_answer, lang='en', tld=accent, slow = slow)
+          tts1.write_to_fp(sound_file1)
+          st.audio(sound_file1)
     
           # 유사도 계산
           similarity = calculate_similarity(text1, saved_answer)
