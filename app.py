@@ -149,7 +149,7 @@ if password_input == "cmcpl":
 
   saved_answer = st.session_state.saved_answer
   st.write("Record: ", answer)
-  audio_data1 = st.audio_input("Record English Answer in Quiz")
+  audio_data1 = st.audio_input("Record: ", answer)
 
   if audio_data1 is not None:
     audio_bytes1 = io.BytesIO(audio_data1.read())
