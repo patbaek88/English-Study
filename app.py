@@ -12,15 +12,20 @@ password_input = st.text_input("암호를 입력해주세요",type= "password")
 
 if password_input == "cmcpl":
 
-  
-  # review 데이터 불러오기
-  dataframe = pd.read_csv('review.csv') #encoding="euc-kr")
+  st.write("")
+  st.subheader('학습')
+
+  contents = st.radio("콘텐츠 선택", ["폼나는 영어", "스픽"])
+  if contents == "폼나는 영어":
+    dataframe = pd.read_csv('review.csv')
+
+  if contents == "스픽":
+    dataframe = pd.read_csv('review_speak.csv')
 
   topics = dataframe["Topic"].drop_duplicates().tolist()
 
 
-  st.write("")
-  st.subheader('학습')
+
    # 모든 주제를 기본값으로 선택
   selected_topics = st.multiselect(label="학습 주제 선택 (복수 선택 가능)", options=topics, default=None)
 
