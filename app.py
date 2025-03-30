@@ -148,7 +148,7 @@ if password_input == "cmcpl":
 
 
   saved_answer = st.session_state.saved_answer
-  st.write("Record: ", saved_answer)
+  st.write("Record: ", answer)
   audio_data1 = st.audio_input("Record English Answer in Quiz")
 
   if audio_data1 is not None:
