@@ -150,7 +150,7 @@ if password_input == "cmcpl":
   
 
   st.write("녹음할 문장: "+answer)
-  audio_data1 = st.audio_input()
+  audio_data1 = st.audio_input(label=None)
   
 
   if audio_data1 is not None:
