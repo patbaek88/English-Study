@@ -164,6 +164,8 @@ if password_input == "cmcpl":
           # 저장된 df_answer 값 사용
           saved_answer = st.session_state.saved_answer
           st.write("Answer: ", saved_answer)
+          sound_file = st.session_state.sound_file
+          st.audio(sound_file)
     
           # 유사도 계산
           similarity = calculate_similarity(text1, saved_answer)
@@ -187,6 +189,7 @@ if password_input == "cmcpl":
   # 녹음 직전에 df_answer 값을 session_state에 저장
 
   st.session_state.saved_answer = df_answer.iloc[0, 0]
+  st.session_state.sound_file = sound_file
 
 
 
