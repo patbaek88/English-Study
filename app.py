@@ -148,8 +148,8 @@ if password_input == "cmcpl":
 
 
   
-  
-  audio_data1 = st.audio_input("녹음할 문장: "+answer)
+  st.write("녹음할 문장: "+answer)
+  audio_data1 = st.audio_input("")
 
   if audio_data1 is not None:
     audio_bytes1 = io.BytesIO(audio_data1.read())
