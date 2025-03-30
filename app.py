@@ -111,7 +111,7 @@ if password_input == "cmcpl":
     tts = gTTS(answer, lang='en', tld=accent, slow = slow)
     tts.write_to_fp(sound_file)
    
-    tab1, tab2, tab3 = st.tabs(['Korean' , 'English', 'Listening'])
+    tab1, tab2, tab3, tab4 = st.tabs(['Korean' , 'English', 'Listening', 'Pronunciation'])
     
     with tab1:
       #tab 1 를 누르면 표시될 내용
@@ -127,61 +127,59 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
+    with tab4:
+      #tab 4를 누르면 표시될 내용
+      
+      def calculate_similarity(text1, text2):
+      # CountVectorizer를 이용하여 텍스트를 벡터화
+      vectorizer = CountVectorizer().fit_transform([text1, text2])
+      
+      # 코사인 유사도 계산
+      cosine_sim = cosine_similarity(vectorizer[0], vectorizer[1])
+      
+      # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
+      return cosine_sim[0][0]
+
+
+  
+
+      st.write("녹음할 문장: "+answer)
+      audio_data1 = st.audio_input("Click the mic icon to record")
+      
+    
+      if audio_data1 is not None:
+        audio_bytes1 = io.BytesIO(audio_data1.read())
+        if audio_data1.type == "audio/mpeg":     
+          audio1 = AudioSegment.from_mp3(audio_bytes1)
+          audio_bytes1 = io.BytesIO()
+          audio1.export(audio_bytes1, format ="wav")
+    
+        recognizer1 = sr.Recognizer()
+        with sr.AudioFile(audio_bytes1) as source:
+          audio1 = recognizer1.record(source)
+    
+        try:
+          text1 = recognizer1.recognize_google(audio1, language = "en")
+          st.write(f"You said: {text1}")
+          # 저장된 df_answer 값 사용
+          saved_answer = st.session_state.saved_answer
+          st.write("Answer: ", saved_answer)
+    
+          # 유사도 계산
+          similarity = calculate_similarity(text1, saved_answer)
+          
+          # 결과 출력
+          st.write("Score: ", round(similarity*100))
+          
+          
+        except sr.UnknownValueError:
+          st.write("Your sentence was not recognized.")
+        except sr.RequestError as e:
+          st.write(f"Error occured: {e}")
+      
+
   if st.button("Reload"):
     st.write("")
-
-  
-  st.write("")
-  st.subheader('Pronunciation Check')
-
-
-
-  def calculate_similarity(text1, text2):
-    # CountVectorizer를 이용하여 텍스트를 벡터화
-    vectorizer = CountVectorizer().fit_transform([text1, text2])
-    
-    # 코사인 유사도 계산
-    cosine_sim = cosine_similarity(vectorizer[0], vectorizer[1])
-    
-    # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
-    return cosine_sim[0][0]
-
-
-  
-
-  st.write("녹음할 문장: "+answer)
-  audio_data1 = st.audio_input(label=None)
-  
-
-  if audio_data1 is not None:
-    audio_bytes1 = io.BytesIO(audio_data1.read())
-    if audio_data1.type == "audio/mpeg":     
-      audio1 = AudioSegment.from_mp3(audio_bytes1)
-      audio_bytes1 = io.BytesIO()
-      audio1.export(audio_bytes1, format ="wav")
-
-    recognizer1 = sr.Recognizer()
-    with sr.AudioFile(audio_bytes1) as source:
-      audio1 = recognizer1.record(source)
-
-    try:
-      text1 = recognizer1.recognize_google(audio1, language = "en")
-      st.write(f"You said: {text1}")
-      # 저장된 df_answer 값 사용
-      saved_answer = st.session_state.saved_answer
-      st.write("Answer: ", saved_answer)
-
-      # 유사도 계산
-      similarity = calculate_similarity(text1, saved_answer)
-      
-      # 결과 출력
-      st.write("Score: ", round(similarity*100))
-      
-      
-    except sr.UnknownValueError:
-      st.write("Your sentence was not recognized.")
-    except sr.RequestError as e:
-      st.write(f"Error occured: {e}")
 
 
 
