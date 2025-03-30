@@ -127,8 +127,7 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
-  if st.button("Reload"):
-    st.write("")
+
 
   
   st.write("")
@@ -187,6 +186,10 @@ if password_input == "cmcpl":
   # 녹음 직전에 df_answer 값을 session_state에 저장
 
   st.session_state.saved_answer = df_answer.iloc[0, 0]
+
+
+  if st.button("Reload"):
+    st.write("")
 
    
       
