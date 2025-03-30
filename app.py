@@ -131,14 +131,14 @@ if password_input == "cmcpl":
       #tab 4를 누르면 표시될 내용
       
       def calculate_similarity(text1, text2):
-      # CountVectorizer를 이용하여 텍스트를 벡터화
-      vectorizer = CountVectorizer().fit_transform([text1, text2])
-      
-      # 코사인 유사도 계산
-      cosine_sim = cosine_similarity(vectorizer[0], vectorizer[1])
-      
-      # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
-      return cosine_sim[0][0]
+        # CountVectorizer를 이용하여 텍스트를 벡터화
+        vectorizer = CountVectorizer().fit_transform([text1, text2])
+        
+        # 코사인 유사도 계산
+        cosine_sim = cosine_similarity(vectorizer[0], vectorizer[1])
+        
+        # 유사도 반환 (0과 1 사이 값, 1에 가까울수록 유사)
+        return cosine_sim[0][0]
 
 
   
