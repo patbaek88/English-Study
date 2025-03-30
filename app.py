@@ -147,7 +147,7 @@ if password_input == "cmcpl":
     return cosine_sim[0][0]
 
 
-  saved_answer = st.session_state.saved_answer
+  
   
   audio_data1 = st.audio_input("녹음할 문장: "+answer)
 
@@ -165,7 +165,8 @@ if password_input == "cmcpl":
     try:
       text1 = recognizer1.recognize_google(audio1, language = "en")
       st.write(f"You said: {text1}")
-      # 저장된 df_answer 값 사용      
+      # 저장된 df_answer 값 사용
+      saved_answer = st.session_state.saved_answer
       st.write("Answer: ", saved_answer)
 
       # 유사도 계산
