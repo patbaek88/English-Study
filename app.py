@@ -176,6 +176,9 @@ if password_input == "cmcpl":
     except sr.RequestError as e:
       st.write(f"Error occured: {e}")
 
+  if st.button("Reload"):
+    st.write("")
+
 
   # 녹음 직전에 df_answer 값을 session_state에 저장
 
@@ -183,13 +186,8 @@ if password_input == "cmcpl":
 
    
       
-  if st.button("Reload"):
-    st.write("")
-  
-  st.write("")
-  st.write("")
-  link1 = '[Link to "Speak Review"](http://review-speak.streamlit.app)'
-  st.markdown(link1, unsafe_allow_html=True)
+
+
 
 
 
