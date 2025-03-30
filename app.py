@@ -127,6 +127,10 @@ if password_input == "cmcpl":
       
       st.audio(sound_file, autoplay=autoplay)
 
+  if st.button("Reload"):
+    st.write("")
+
+  
   st.write("")
   st.subheader('Pronunciation Check')
 
@@ -176,8 +180,7 @@ if password_input == "cmcpl":
     except sr.RequestError as e:
       st.write(f"Error occured: {e}")
 
-  if st.button("Reload"):
-    st.write("")
+
 
 
   # 녹음 직전에 df_answer 값을 session_state에 저장
