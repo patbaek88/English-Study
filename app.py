@@ -91,10 +91,7 @@ if password_input == "cmcpl":
     st.write("No more new quizzes available!")
     st.session_state.used_samples = []
     df_answer = pd.DataFrame({"Answer": [st.session_state.last_answer]})
-    answer = df_answer.iloc[0,0]
     sound_file = BytesIO()
-    tts = gTTS(answer, lang='en', tld=accent, slow = slow)
-    tts.write_to_fp(sound_file)
   
   else:
     df_samples = remaining_samples.sample(n=1, replace=False)
