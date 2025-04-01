@@ -90,7 +90,7 @@ if password_input == "cmcpl":
   if remaining_samples.empty:
     st.write("No more new quizzes available!")
     st.session_state.used_samples = []
-    df_answer = pd.DataFrame()
+    df_answer = pd.DataFrame(columns =["Answer"])
     
   else:
     df_samples = remaining_samples.sample(n=1, replace=False)
