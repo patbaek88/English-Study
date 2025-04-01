@@ -191,7 +191,7 @@ if password_input == "cmcpl":
 
   # 녹음 직전에 df_answer 값을 session_state에 저장
 
-  st.session_state.saved_answer = df_answer.iloc[0, 0]
+  st.session_state.saved_answer = answer #df_answer.iloc[0, 0]
   st.session_state.sound_file = sound_file
 
 
